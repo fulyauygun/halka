@@ -8,11 +8,18 @@ import { formatTokenAmount, truncateAddress } from "@/lib/format";
 import { useCircle } from "@/lib/use-circle";
 import { useWallet } from "@/lib/wallet";
 import { CopyLinkButton } from "@/components/copy-link-button";
+import { NazarBead } from "@/components/nazar-bead";
 
 const STATUS_LABEL: Record<string, string> = {
   Forming: "Katılım bekleniyor",
   Active: "Aktif",
   Completed: "Tamamlandı",
+};
+
+const STATUS_STYLE: Record<string, string> = {
+  Forming: "bg-gold/15 text-terracotta-dark dark:text-gold-light",
+  Active: "bg-turquoise/15 text-turquoise-dark dark:text-turquoise",
+  Completed: "bg-nazar-blue/15 text-nazar-blue-dark dark:text-nazar-blue",
 };
 
 export function CircleDashboard({ circleId }: { circleId: bigint }) {
@@ -41,10 +48,15 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
   }
 
   if (loading && !circle) {
-    return <p className="text-neutral-500">Halka bilgileri yükleniyor…</p>;
+    return (
+      <div className="flex items-center gap-3 text-muted">
+        <NazarBead size={22} spin />
+        <span>Halka bilgileri yükleniyor…</span>
+      </div>
+    );
   }
   if (error && !circle) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-terracotta">{error}</p>;
   }
   if (!circle || !members) return null;
 
@@ -72,36 +84,39 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
     <div className="space-y-8">
       <div>
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Halka #{circleId.toString()}</h1>
-          <span className="rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium dark:bg-neutral-800">
+          <div className="flex items-center gap-2">
+            {status === "Completed" && <NazarBead size={26} />}
+            <h1 className="text-2xl font-semibold">Halka #{circleId.toString()}</h1>
+          </div>
+          <span className={`rounded-full px-3 py-1 text-sm font-medium ${STATUS_STYLE[status] ?? ""}`}>
             {STATUS_LABEL[status] ?? status}
           </span>
         </div>
-        <p className="mt-1 text-sm text-neutral-500">
+        <p className="mt-1 text-sm text-muted">
           {memberCount} üye · Katkı: {formatTokenAmount(circle.contribution_amount)} / round
         </p>
       </div>
 
       {status !== "Completed" && (
-        <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="rounded-xl border-2 border-card-border bg-card p-4">
           <div className="flex items-center justify-between text-sm">
             <span className="font-medium">
               Round {circle.round_index + 1} / {memberCount}
             </span>
-            <span className="text-neutral-500">
+            <span className="text-muted">
               {circle.round_deposit_count} / {memberCount} üye yatırdı
             </span>
           </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
+          <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-background">
             <div
-              className="h-full bg-neutral-900 transition-all dark:bg-white"
+              className="h-full rounded-full bg-gradient-to-r from-turquoise to-gold transition-all"
               style={{
                 width: `${(circle.round_deposit_count / memberCount) * 100}%`,
               }}
             />
           </div>
           {status === "Active" && (
-            <p className="mt-2 text-xs text-neutral-500">
+            <p className="mt-2 text-xs text-muted">
               Sıradaki ödeme:{" "}
               <span className="font-mono">
                 {truncateAddress(circle.payout_order[circle.round_index])}
@@ -114,12 +129,12 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
       )}
 
       <div>
-        <h2 className="text-sm font-medium text-neutral-500">Üyeler</h2>
-        <ul className="mt-2 divide-y divide-neutral-100 dark:divide-neutral-800">
+        <h2 className="text-sm font-medium text-muted">Üyeler</h2>
+        <ul className="mt-2 divide-y divide-card-border">
           {members.map((m) => (
             <li key={m.address} className="flex items-center justify-between py-2 text-sm">
               <span className="font-mono">{truncateAddress(m.address)}</span>
-              <span className="flex gap-2 text-xs text-neutral-500">
+              <span className="flex gap-2 text-xs text-muted">
                 {status === "Forming" && (m.joined ? "Katıldı" : "Bekleniyor")}
                 {status === "Active" && (m.depositedThisRound ? "Bu round yatırdı" : "Bekleniyor")}
                 {status === "Completed" && "—"}
@@ -131,7 +146,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
       {circle.round_index > 0 && (
         <div>
-          <h2 className="text-sm font-medium text-neutral-500">Ödeme geçmişi</h2>
+          <h2 className="text-sm font-medium text-muted">Ödeme geçmişi</h2>
           <ul className="mt-2 space-y-1 text-sm">
             {circle.payout_order.slice(0, circle.round_index).map((recipient, i) => (
               <li key={i} className="flex justify-between">
@@ -144,19 +159,19 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
       )}
 
       <div className="space-y-3">
-        {actionError && <p className="text-sm text-red-500">{actionError}</p>}
+        {actionError && <p className="text-sm text-terracotta">{actionError}</p>}
 
         {!address && status !== "Completed" && (
           <button
             onClick={connect}
-            className="w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white dark:bg-white dark:text-neutral-900"
+            className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm"
           >
             Devam etmek için cüzdanı bağla
           </button>
         )}
 
         {address && !isMember && status === "Forming" && (
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-muted">
             Bağlı adresiniz bu halkanın üye listesinde değil. Katılabilmek için davet linkiyle
             eklenmeniz gerekir.
           </p>
@@ -227,9 +242,9 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
       </div>
 
       {status === "Forming" && joinUrl && (
-        <div className="rounded-xl border border-dashed border-neutral-300 p-4 dark:border-neutral-700">
+        <div className="rounded-xl border-2 border-dashed border-gold/50 bg-gold/5 p-4">
           <p className="text-sm font-medium">Davet linki</p>
-          <p className="mt-1 break-all font-mono text-xs text-neutral-500">{joinUrl}</p>
+          <p className="mt-1 break-all font-mono text-xs text-muted">{joinUrl}</p>
           <CopyLinkButton url={joinUrl} />
         </div>
       )}
@@ -254,8 +269,8 @@ function ActionButton({
       disabled={pending}
       className={
         variant === "primary"
-          ? "w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
-          : "w-full rounded-full border border-neutral-300 px-4 py-2.5 text-sm font-medium transition hover:bg-neutral-100 disabled:opacity-50 dark:border-neutral-700 dark:hover:bg-neutral-800"
+          ? "w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
+          : "w-full rounded-full border-2 border-gold/60 px-4 py-2.5 text-sm font-medium text-terracotta-dark transition hover:bg-gold/10 disabled:opacity-50 dark:text-gold-light"
       }
     >
       {pending ? "İşleniyor…" : label}

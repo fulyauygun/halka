@@ -8,6 +8,7 @@ import { describeError } from "@/lib/errors";
 import { formatTokenAmount, truncateAddress } from "@/lib/format";
 import { useCircle } from "@/lib/use-circle";
 import { useWallet } from "@/lib/wallet";
+import { NazarBead } from "@/components/nazar-bead";
 
 export function JoinCircleCard({ circleId }: { circleId: bigint }) {
   const { address, connect, isConnecting } = useWallet();
@@ -17,10 +18,15 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
   const router = useRouter();
 
   if (loading && !circle) {
-    return <p className="text-neutral-500">Halka bilgileri yükleniyor…</p>;
+    return (
+      <div className="flex items-center gap-3 text-muted">
+        <NazarBead size={22} spin />
+        <span>Halka bilgileri yükleniyor…</span>
+      </div>
+    );
   }
   if (error && !circle) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-terracotta">{error}</p>;
   }
   if (!circle || !members) return null;
 
@@ -47,17 +53,18 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
   }
 
   return (
-    <div className="space-y-6 rounded-2xl border border-neutral-200 p-6 dark:border-neutral-800">
-      <div>
+    <div className="space-y-6 rounded-2xl border-2 border-card-border bg-card p-6 shadow-[0_4px_0_0_var(--card-border)]">
+      <div className="flex items-center gap-2.5">
+        <NazarBead size={24} />
         <h1 className="text-xl font-semibold">Halka #{circleId.toString()}&apos;e katıl</h1>
-        <p className="mt-1 text-sm text-neutral-500">
-          {members.length} üye · Katkı: {formatTokenAmount(circle.contribution_amount)} / round ·
-          Oluşturan: <span className="font-mono">{truncateAddress(circle.creator)}</span>
-        </p>
       </div>
+      <p className="-mt-3 text-sm text-muted">
+        {members.length} üye · Katkı: {formatTokenAmount(circle.contribution_amount)} / round ·
+        Oluşturan: <span className="font-mono">{truncateAddress(circle.creator)}</span>
+      </p>
 
       {circle.status.tag !== "Forming" && (
-        <p className="text-sm text-amber-600 dark:text-amber-400">
+        <p className="text-sm text-gold">
           Bu halka artık katılıma açık değil — davetler kapandı.
         </p>
       )}
@@ -68,21 +75,21 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
             <button
               onClick={connect}
               disabled={isConnecting}
-              className="w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-neutral-900"
+              className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm disabled:opacity-50"
             >
               {isConnecting ? "Bağlanıyor…" : "Freighter ile bağlan"}
             </button>
           )}
 
           {address && !isMember && (
-            <p className="text-sm text-red-500">
+            <p className="text-sm text-terracotta">
               Bağlı adresiniz ({truncateAddress(address)}) bu halkanın üye listesinde değil.
               Yanlış cüzdanla bağlandıysanız Freighter&apos;dan hesap değiştirip tekrar deneyin.
             </p>
           )}
 
           {address && isMember && alreadyJoined && (
-            <p className="text-sm text-emerald-600 dark:text-emerald-400">
+            <p className="text-sm text-turquoise-dark dark:text-turquoise">
               Zaten katıldınız — halka sayfasına gidebilirsiniz.
             </p>
           )}
@@ -91,19 +98,19 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
             <button
               onClick={handleJoin}
               disabled={isJoining}
-              className="w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-neutral-900"
+              className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm disabled:opacity-50"
             >
               {isJoining ? "Katılınıyor…" : "Katıl"}
             </button>
           )}
 
-          {joinError && <p className="text-sm text-red-500">{joinError}</p>}
+          {joinError && <p className="text-sm text-terracotta">{joinError}</p>}
         </>
       )}
 
       <a
         href={`/circle/${circleId}`}
-        className="block text-center text-sm text-neutral-500 hover:underline"
+        className="block text-center text-sm text-muted hover:text-turquoise-dark hover:underline"
       >
         Halka sayfasına git
       </a>
