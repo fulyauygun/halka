@@ -23,7 +23,9 @@ jobs:
         run: cargo test --workspace
 
       - name: Install Stellar CLI
-        run: cargo install --locked stellar-cli --version 27.1.0
+        run: |
+          curl -LO https://github.com/stellar/stellar-cli/releases/download/v27.1.0/stellar-cli_27.1.0_amd64.deb
+          sudo dpkg -i stellar-cli_27.1.0_amd64.deb
 
       - name: stellar contract build
         run: stellar contract build
