@@ -121,7 +121,8 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
               <span className="font-mono">{truncateAddress(m.address)}</span>
               <span className="flex gap-2 text-xs text-neutral-500">
                 {status === "Forming" && (m.joined ? "Katıldı" : "Bekleniyor")}
-                {status !== "Forming" && (m.depositedThisRound ? "Bu round yatırdı" : "Bekleniyor")}
+                {status === "Active" && (m.depositedThisRound ? "Bu round yatırdı" : "Bekleniyor")}
+                {status === "Completed" && "—"}
               </span>
             </li>
           ))}
