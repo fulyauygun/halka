@@ -1,4 +1,4 @@
-# Week 2 — Testnet uçtan uca doğrulama
+# Week 2 — Testnet end-to-end verification
 
 ## Deploy
 
@@ -7,23 +7,23 @@
 - Upload tx: [c1b74c58...fc3df6b](https://stellar.expert/explorer/testnet/tx/c1b74c58c1d9d15a3d8e382cd42f8d38c82d12f0c7df55f8b692d0808fc3df6b)
 - Create-instance tx: [7cc03d1c...9777d1](https://stellar.expert/explorer/testnet/tx/7cc03d1c742b4a149c264ebaa97b5fc5b625763640c04d8c1aa384e3589777d1)
 
-## Kullanılan token
+## Token used
 
-Bu doğrulama koşusu **native XLM'in Stellar Asset Contract'ını** (`CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`)
-pooled token olarak kullandı — `deployer`/`member1-5` zaten Friendbot'tan XLM ile fonlı olduğu
-için ek trustline/mint kurulumu gerekmedi. Kontratın `token` parametresi tamamen jenerik
-(herhangi bir SAC adresini kabul eder), bu yüzden bu koşu payout/deposit mantığının gerçek
-zincir üzerinde doğru çalıştığını birebir kanıtlıyor.
+This verification run used **native XLM's Stellar Asset Contract**
+(`CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`) as the pooled token —
+`deployer`/`member1-5` were already funded with XLM via Friendbot, so no extra trustline/mint
+setup was needed. The contract's `token` parameter is fully generic (it accepts any SAC address),
+so this run is a direct proof that the deposit/payout logic works correctly on the real chain.
 
-Resmi Circle testnet USDC SAC adresi de doğrulanmış durumda ve gelecekteki koşularda (Week 3/4)
-doğrudan kullanılabilir:
+The official Circle testnet USDC SAC address has also been verified and is ready to use in
+future runs (Week 3/4):
 - USDC issuer: `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5`
-- USDC SAC: `CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA` (canlı, `symbol()` çağrısıyla doğrulandı)
-- Testnet USDC almak için: [faucet.circle.com](https://faucet.circle.com) (Stellar seçip test adresini gir) — manuel/tarayıcı adımı gerektiriyor.
+- USDC SAC: `CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA` (live, verified via a `symbol()` call)
+- To get testnet USDC: [faucet.circle.com](https://faucet.circle.com) (select Stellar, enter the test address) — requires a manual/browser step.
 
-## Senaryo: circle_id 0, 3 üye, 3 round, contribution = 10 XLM/round
+## Scenario: circle_id 0, 3 members, 3 rounds, contribution = 10 XLM/round
 
-| Adım | Kim | Tx |
+| Step | Who | Tx |
 | --- | --- | --- |
 | `create_circle` | deployer (creator) | [02678e19...4f95d43](https://stellar.expert/explorer/testnet/tx/02678e19ab93dd35bfb6627aeb87e73fa52f12f259adf2ba576e6bb264f95d43) |
 | `join_circle` | member1 | [328c7e82...96641](https://stellar.expert/explorer/testnet/tx/328c7e82d05d0d0922bf0345289c5548b4b6b1cebd04b7b16d738d6315496641) |
@@ -34,19 +34,20 @@ doğrudan kullanılabilir:
 | `deposit` (round 0) | member3 | [e4f22cea...b4a9a50c70c5b](https://stellar.expert/explorer/testnet/tx/e4f22cea8edf55b03e844be00b13acfeeeafc2d5a0aff7de269b4a9a50c70c5b) |
 | `payout` (round 0 → member1) | deployer (permissionless) | [049ad6a3...5a763f35](https://stellar.expert/explorer/testnet/tx/049ad6a306f9f163eada89fe218ed95e47ca291fc6c809bb035e25375a763f35) |
 
-## Doğrulanan sonuçlar
+## Verified outcomes
 
-- `create_circle` → `circle_id = 0`, tüm 3 üye `join_circle`'dan sonra circle `Active`'e geçti
-  (`round_deadline` set edildi).
-- 3 deposit'in her biri kontrata 10 XLM (`100000000` stroop) transfer etti — SAC `transfer`
-  event'leriyle doğrulandı.
-- `payout` çağrısı, tam pool'u (`300000000` stroop = 30 XLM) `payout_order[0]` (member1) adresine
-  transfer etti — SAC `transfer` event'iyle doğrulandı.
-- Payout sonrası `get_circle` çağrısı: `round_index = 1`, `round_deposit_count = 0`,
-  `status = Active` (3 round'un 1'i tamamlandığı için circle hâlâ aktif) — kontrat state'i
-  beklendiği gibi ilerledi.
-- member1 bakiyesi payout sonrası `100199740975` stroop (~10.019,97 XLM) — başlangıç
-  (~10.000 XLM, Friendbot) + 30 XLM payout − 10 XLM deposit − işlem ücretleri ile tutarlı.
+- `create_circle` → `circle_id = 0`; the circle became `Active` once all 3 members called
+  `join_circle` (`round_deadline` was set).
+- Each of the 3 deposits transferred 10 XLM (`100000000` stroops) to the contract — verified via
+  the SAC `transfer` events.
+- The `payout` call transferred the full pool (`300000000` stroops = 30 XLM) to
+  `payout_order[0]` (member1) — verified via the SAC `transfer` event.
+- A `get_circle` call after the payout returned `round_index = 1`, `round_deposit_count = 0`,
+  `status = Active` (1 of 3 rounds complete, circle still active) — contract state advanced
+  exactly as expected.
+- member1's balance after the payout was `100199740975` stroops (~10,019.97 XLM) — consistent
+  with the starting balance (~10,000 XLM from Friendbot) + 30 XLM payout − 10 XLM deposit − tx fees.
 
-Bu koşu, `create_circle → join_circle → deposit ×N → payout` akışının gerçek Stellar testnet'inde,
-CLI üzerinden, bağımsız olarak stellar.expert'te doğrulanabilir şekilde çalıştığını kanıtlıyor.
+This run proves that the `create_circle → join_circle → deposit ×N → payout` flow works
+correctly on real Stellar testnet, driven via the CLI, and is independently verifiable on
+stellar.expert.
