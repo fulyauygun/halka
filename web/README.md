@@ -1,9 +1,9 @@
 # Halka — web
 
-Next.js 16 (App Router) + TypeScript + Tailwind v4 web uygulaması. Halka Soroban kontratıyla
-(`../contracts/circle`) Freighter cüzdanı üzerinden konuşur.
+Next.js 16 (App Router) + TypeScript + Tailwind v4 web app. Talks to the Halka Soroban contract
+(`../contracts/circle`) through the Freighter wallet.
 
-## Çalıştır
+## Run it
 
 ```bash
 npm install
@@ -11,26 +11,26 @@ npm run dev      # http://localhost:3010
 npm run build
 ```
 
-## Kontrat entegrasyonu
+## Contract integration
 
-`src/lib/contracts/circle.ts`, deploy edilmiş testnet kontratı için
-`stellar contract bindings typescript` ile üretilip buraya taşınmış tip-güvenli bir client'tır
-(regenerate edilirse tekrar buraya kopyalanmalı — kendi başına npm paketi olarak tutulmuyor).
+`src/lib/contracts/circle.ts` is a type-safe client generated for the deployed testnet contract
+via `stellar contract bindings typescript` and relocated here (if regenerated, it needs to be
+copied back over — it isn't kept as a standalone npm package).
 
-- `src/lib/circle-client.ts` — read-only ve cüzdan-imzalı client oluşturucular
-- `src/lib/wallet.tsx` — Freighter bağlantı context'i (`useWallet()`)
-- `src/lib/use-circle.ts` — SWR tabanlı circle state okuma hook'u
-- `src/lib/errors.ts` — kontrat hata kodlarının Türkçe kullanıcı mesajlarına çevirisi
+- `src/lib/circle-client.ts` — read-only and wallet-signed client constructors
+- `src/lib/wallet.tsx` — Freighter connection context (`useWallet()`)
+- `src/lib/use-circle.ts` — SWR-based hook for reading circle state
+- `src/lib/errors.ts` — maps contract error codes to Turkish user-facing messages
 
-## Sayfalar
+## Pages
 
-- `/` — halka oluşturma formu
-- `/circle/[id]` — round-status dashboard (deposit/payout/reclaim aksiyonları)
-- `/circle/[id]/join` — davet linkiyle katılım akışı
+- `/` — circle creation form
+- `/circle/[id]` — round-status dashboard (deposit/payout/reclaim actions)
+- `/circle/[id]/join` — join-via-invite-link flow
 
-## Notlar
+## Notes
 
-- Token adresleri (native XLM SAC, testnet USDC SAC) `src/lib/config.ts`'te sabit — ikisi de
-  public/testnet bilgisi olduğu için env değişkenine gerek duyulmadı.
-- `eslint.config.mjs`, üretilen `src/lib/contracts/**` dosyasını lint kapsamı dışında tutar
-  (regenerate edilebilir kod, elle düzeltme yapılmamalı).
+- Token addresses (native XLM SAC, testnet USDC SAC) are hardcoded in `src/lib/config.ts` — both
+  are public/testnet information, so no env variable was needed.
+- `eslint.config.mjs` excludes the generated `src/lib/contracts/**` file from linting (it's
+  regeneratable code and shouldn't be hand-edited).
