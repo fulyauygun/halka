@@ -1,32 +1,33 @@
-# Week 4 — 5 üyeli, 5 round'luk tam demo döngüsü (testnet)
+# Week 4 — Full 5-member, 5-round demo cycle (testnet)
 
-Deliverable 3'ün özünü karşılayan tam bir döngü: 5 test cüzdanı (`member1`–`member5`), her biri
-5 round boyunca katkı payını yatırıyor, her round'da havuzun tamamı sırası gelen üyeye ödeniyor.
-36 işlemin tamamı gerçek Stellar testnet'inde çalıştırıldı ve stellar.expert'te bağımsız olarak
-doğrulanabilir.
+A full cycle that satisfies the substance of Deliverable 3: 5 test wallets (`member1`–`member5`),
+each depositing its contribution across 5 rounds, with the full pool paid out to the member
+whose turn it is each round. All 36 transactions ran on real Stellar testnet and are
+independently verifiable on stellar.expert.
 
-**Not — CLI vs. UI:** Bu koşu Soroban CLI ile yürütüldü (Week 2'deki uçtan uca doğrulamanın aynı
-yöntemi, 5 üyeye ve tam 5 round'a genişletilmiş hali). Kontrat mantığının gerçek zincirde doğru
-çalıştığının kanıtı budur. Web UI üzerinden gerçek bir Freighter cüzdanıyla tıklanarak yapılan
-versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
-[docs/ui-demo-runbook.md](ui-demo-runbook.md)'daki adımlarla ayrı bir oturumda tamamlanmalı.
+**Note — CLI vs. UI:** this run was executed via the Soroban CLI (the same method as the Week 2
+end-to-end verification, extended to 5 members and a full 5 rounds). This is the proof that the
+contract logic works correctly on the real chain. The version clicked through the web UI with a
+real Freighter wallet, plus a screen recording (the literal format Deliverable 3 asks for), still
+needs to be completed separately following the steps in
+[docs/ui-demo-runbook.md](ui-demo-runbook.md).
 
 - **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
 - **Circle ID:** `1`
 - **Token:** native XLM SAC (`CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`)
-- **Katkı:** 5 XLM / üye / round · **Round pool:** 25 XLM
-- **Üyeler:** `member1`…`member5` (bkz. [docs/testnet-accounts.md](testnet-accounts.md))
-- **Sonuç:** `status: Completed`, `round_index: 5` — [get_circle sorgusu](https://stellar.expert/explorer/testnet/contract/CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q)
+- **Contribution:** 5 XLM / member / round · **Round pool:** 25 XLM
+- **Members:** `member1`…`member5` (see [docs/testnet-accounts.md](testnet-accounts.md))
+- **Result:** `status: Completed`, `round_index: 5` — [get_circle query](https://stellar.expert/explorer/testnet/contract/CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q)
 
 ## create_circle
 
-| Kim | Tx |
+| Who | Tx |
 | --- | --- |
 | deployer (creator) | [9eaf024f…62e3ed4b](https://stellar.expert/explorer/testnet/tx/9eaf024fa0c67798ff729283f2bce06f2248bd1645d49dd0fa0e16e162e3ed4b) |
 
 ## join_circle
 
-| Üye | Tx |
+| Member | Tx |
 | --- | --- |
 | member1 | [ac2be646…f8467339](https://stellar.expert/explorer/testnet/tx/ac2be646b953346f166e672975492433de908f805db11a58fd9158b1f8467339) |
 | member2 | [5687cd77…fba7382a2f](https://stellar.expert/explorer/testnet/tx/5687cd77166a84e35fdceaa081b642a9815108cf4619b80a820f45fba7382a2f) |
@@ -36,7 +37,7 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 
 ## Round 1 → member1
 
-| İşlem | Kim | Tx |
+| Action | Who | Tx |
 | --- | --- | --- |
 | deposit | member1 | [2ce7e321…8888266a9](https://stellar.expert/explorer/testnet/tx/2ce7e32108e0b33126ffebc93fde9ae95e6d790a2dd46f70a724a1e8888266a9) |
 | deposit | member2 | [990e8059…f8ed10feb](https://stellar.expert/explorer/testnet/tx/990e80591796e61bcabbd849989dbce92654e6010efea0b5a1a8b9cf8ed10feb) |
@@ -47,7 +48,7 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 
 ## Round 2 → member2
 
-| İşlem | Kim | Tx |
+| Action | Who | Tx |
 | --- | --- | --- |
 | deposit | member1 | [2729667c…0372b505a](https://stellar.expert/explorer/testnet/tx/2729667cc5e72df395d1834efe74c32a64915ec28290420d6ec60070372b505a) |
 | deposit | member2 | [55269a27…c0fc08b6d](https://stellar.expert/explorer/testnet/tx/55269a274acb5b6d708aa9bc496781adbab3b3935a7c55d6b2fdb88c0fc08b6d) |
@@ -58,7 +59,7 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 
 ## Round 3 → member3
 
-| İşlem | Kim | Tx |
+| Action | Who | Tx |
 | --- | --- | --- |
 | deposit | member1 | [b7e40d4a…4c04d540d5ca](https://stellar.expert/explorer/testnet/tx/b7e40d4a91e0a8cf8939e1db4316383bebacd4498269b66158e49c04d540d5ca) |
 | deposit | member2 | [93a2328d…8054e7f651231](https://stellar.expert/explorer/testnet/tx/93a2328de6f7e60a8417a08aea65753e2de01146284b7dea43a8054e7f651231) |
@@ -69,7 +70,7 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 
 ## Round 4 → member4
 
-| İşlem | Kim | Tx |
+| Action | Who | Tx |
 | --- | --- | --- |
 | deposit | member1 | [99232f9e…445a4633cd83041aa](https://stellar.expert/explorer/testnet/tx/99232f9e27982243815793cebd448d23c5dbb5049142003445a4633cd83041aa) |
 | deposit | member2 | [7938d81d…c00e33f6987de84ff0](https://stellar.expert/explorer/testnet/tx/7938d81d816fb8d98545840eaba48b2dcd77deb24a408ec00e33f6987de84ff0) |
@@ -80,7 +81,7 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 
 ## Round 5 → member5
 
-| İşlem | Kim | Tx |
+| Action | Who | Tx |
 | --- | --- | --- |
 | deposit | member1 | [05c75f9b…4b58d43c85a9a1234](https://stellar.expert/explorer/testnet/tx/05c75f9b6ecf7cae6baa77723e6999e732b3013d95e98ae4b58d43c85a9a1234) |
 | deposit | member2 | [23235e2e…a974d2987a08208735](https://stellar.expert/explorer/testnet/tx/23235e2e37b0cf4334d8fca3e38cf8bcaae9e40f30573ba974d2987a08208735) |
@@ -89,8 +90,8 @@ versiyon ve ekran kaydı (Deliverable 3'ün istediği literal format) ayrıca
 | deposit | member5 | [35663d4b…d68aae3adb68b68794](https://stellar.expert/explorer/testnet/tx/35663d4b99d85d08061dddcab2036f620c4a6203caeeb3d68aae3adb68b68794) |
 | **payout → member5** | deployer | [043f1744…be8009842e48d4c3f06](https://stellar.expert/explorer/testnet/tx/043f1744727d8363a91aba151a4dcdb5e5fd11fe3c001be8009842e48d4c3f06) |
 
-## Doğrulama
+## Verification
 
-Her round'un payout'u SAC `transfer` event'iyle doğrulandı (kontrat → sıradaki üye, tam pool
-tutarı 25 XLM). Son `get_circle` çağrısı `status: "Completed"`, `round_index: 5`,
-`round_deposit_count: 0` döndürdü — beklenen nihai state.
+Each round's payout was verified via a SAC `transfer` event (contract → the member whose turn
+it was, for the full pool amount of 25 XLM). The final `get_circle` call returned
+`status: "Completed"`, `round_index: 5`, `round_deposit_count: 0` — the expected final state.

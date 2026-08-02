@@ -1,24 +1,25 @@
-# UI demo + video runbook (Deliverable 3, opsiyonel)
+# UI demo + video runbook (Deliverable 3, optional)
 
-Kontratın ve web app'in doğruluğu zaten kanıtlandı: [Week 2 CLI doğrulaması](week2-e2e-verification.md)
-ve [Week 4'ün 5 üyeli/5 round'luk tam döngüsü](week4-demo-tx-log.md) gerçek testnet'te çalıştırıldı,
-her işlem stellar.expert'te bağımsız doğrulanabilir. Bu doküman, SOW'un Deliverable 3'ünün istediği
-**literal formatı** (web app üzerinden, gerçek bir cüzdanla tıklanarak yapılan 5 round'luk demo +
-ekran kaydı) senin kendi Freighter cüzdanınla tamamlaman için bir runbook'tur — bu adım private
-key girişi ve cüzdan onayı gerektirdiği için otomatik yapılamıyor.
+The correctness of the contract and web app is already proven: the
+[Week 2 CLI verification](week2-e2e-verification.md) and the
+[Week 4 5-member/5-round full cycle](week4-demo-tx-log.md) both ran on real testnet, and every
+transaction is independently verifiable on stellar.expert. This document is a runbook for
+completing the SOW's Deliverable 3 in its **literal format** — a 5-round demo clicked through
+the web app with a real wallet, plus a screen recording — using your own Freighter wallet. This
+step requires entering a private key and approving wallet transactions, so it can't be automated.
 
-Tahmini süre: 20-30 dakika (kayıt hariç).
+Estimated time: 20-30 minutes (excluding recording).
 
-## 1. Hazırlık
+## 1. Prep
 
-- [Freighter](https://freighter.app) tarayıcı eklentisini kur.
-- Freighter ayarlarından ağı **Testnet** yap.
-- Ekran kaydı için bir araç hazırla (macOS: QuickTime "New Screen Recording", ya da OBS).
+- Install the [Freighter](https://freighter.app) browser extension.
+- Switch its network to **Testnet** in Freighter's settings.
+- Set up a screen recording tool (macOS: QuickTime "New Screen Recording", or OBS).
 
-## 2. Test cüzdanlarını Freighter'a aktar
+## 2. Import the test wallets into Freighter
 
-Bu proje için oluşturulmuş 5 test hesabının secret key'lerini yerelde şu komutlarla al (repoya
-commit edilmedi, sadece senin makinende):
+Get the secret keys for this project's 5 test accounts locally with these commands (not
+committed to the repo, stays on your machine only):
 
 ```bash
 for m in member1 member2 member3 member4 member5; do
@@ -26,60 +27,62 @@ for m in member1 member2 member3 member4 member5; do
 done
 ```
 
-Freighter'da **"Add another wallet" → "Import secret key"** ile her birini ayrı bir hesap olarak
-ekle (5 hesap, tek Freighter kurulumu içinde — sekmeden hesap değiştirebilirsin).
+In Freighter, use **"Add another wallet" → "Import secret key"** to add each one as a separate
+account (5 accounts inside a single Freighter install — you can switch between them from the
+extension).
 
-## 3. Yeni bir circle oluştur (canlı demo için taze bir tur)
+## 3. Create a new circle (a fresh run for the live demo)
 
-Canlı app: **https://web-psi-liart-24.vercel.app**
+Live app: **https://web-psi-liart-24.vercel.app**
 
-circle_id 0 ve 1 zaten dolu/tamamlanmış durumda — video için taze bir circle_id (muhtemelen `2`)
-oluşturacaksın.
+circle_id 0 and 1 are already used/completed — you'll create a fresh circle_id (likely `2`) for
+the video.
 
-1. Freighter'da **member1** hesabına geç, siteye bağlan.
-2. Ana sayfada "Yeni halka oluştur" formunu doldur:
-   - Üyeler: member1, member2, member3, member4, member5'in G… adresleri (`stellar keys public-key member1` vb.)
-   - Token: **XLM (testnet, faucet gerektirmez)** — faucet beklemeden hemen devam edebilmek için
-   - Round süresi: kısa tut (örn. 1 saat) — demo sırasında beklemeyeceksin zaten
-   - Katkı miktarı: küçük bir değer (örn. 1)
-3. "Halkayı oluştur"a bas, Freighter'da imzayı onayla. `/circle/{id}` sayfasına yönlenirsin — bu
-   ID'yi not al.
+1. In Freighter, switch to the **member1** account, connect to the site.
+2. On the home page, fill in the "Create a new circle" form:
+   - Members: member1, member2, member3, member4, member5's G… addresses (`stellar keys public-key member1`, etc.)
+   - Token: **XLM (testnet, no faucet needed)** — so you can proceed right away without waiting on a faucet
+   - Round duration: keep it short (e.g. 1 hour) — you won't actually be waiting during the demo anyway
+   - Contribution amount: a small value (e.g. 1)
+3. Click "Create circle" and approve the signature in Freighter. You'll land on `/circle/{id}` —
+   note that ID.
 
-## 4. Katılım (join) — 5 kez
+## 4. Join — 5 times
 
-Her üye için:
+For each member:
 
-1. Freighter'da ilgili hesaba geç (member2, member3, member4, member5 sırayla — member1 zaten
-   oluştururken örtük katılmadı, o da katılmalı).
-2. Dashboard'daki "Davet linkini kopyala"yı kullan ya da doğrudan `/circle/{id}/join` adresine git.
-3. "Katıl" butonuna bas, Freighter'da onayla.
+1. Switch to that account in Freighter (member2, member3, member4, member5 in turn — member1
+   didn't implicitly join when creating the circle, so it needs to join too).
+2. Use the dashboard's "Copy invite link" or go directly to `/circle/{id}/join`.
+3. Click "Join" and approve in Freighter.
 
-Tüm 5 üye katılınca circle otomatik **Aktif** durumuna geçer.
+Once all 5 members have joined, the circle automatically becomes **Active**.
 
-## 5. 5 round boyunca deposit + payout
+## 5. Deposit + payout across 5 rounds
 
-Her round için (5 kez tekrarla):
+For each round (repeat 5 times):
 
-1. Sırayla member1 → member5 hesaplarına geçip her birinde dashboard'dan **"Katkı payını yatır"**
-   butonuna bas, Freighter'da onayla.
-2. Tüm 5 üye yatırınca **"Payout'u tetikle"** butonu görünür — herhangi bir bağlı hesapla
-   (genelde son işlemi yapan) tetikleyebilirsin.
-3. Dashboard'da "Ödeme geçmişi" bölümünün güncellendiğini, sıradaki round'a geçildiğini göster.
+1. Switch through member1 → member5 in turn, clicking **"Deposit contribution"** on the
+   dashboard for each and approving in Freighter.
+2. Once all 5 have deposited, the **"Trigger payout"** button appears — you can trigger it from
+   any connected account (usually whoever made the last deposit).
+3. Show the "Payout history" section updating and the round advancing on the dashboard.
 
-5. round'dan sonra circle **Tamamlandı** durumuna geçer, "Ödeme geçmişi" 5 satır gösterir.
+After round 5, the circle moves to **Completed** and "Payout history" shows all 5 entries.
 
 ## 6. Video
 
-- 3-4 dakikaya sığdırmak için: circle oluşturma + 1-2 join + 1 tam round (deposit×5 + payout)
-  gerçek zamanlı, kalan round'ları hızlandırılmış (time-lapse) gösterebilirsin.
-- Türkçe anlatım, sonradan İngilizce altyazı ekle (YouTube otomatik altyazı + düzenleme,
-  ya da Descript/CapCut gibi bir araç).
-- Videoyu YouTube (unlisted) veya benzer bir yere yükle, linki bu dosyaya ve
-  [week4-demo-tx-log.md](week4-demo-tx-log.md)'ye ekle.
+- To fit 3-4 minutes: show circle creation + 1-2 joins + one full round (5 deposits + payout) in
+  real time, and speed through the remaining rounds as a time-lapse.
+- Narrate in Turkish, add English captions afterward (YouTube auto-captions + editing, or a tool
+  like Descript/CapCut).
+- Upload the video (unlisted YouTube or similar) and add the link to this file and to
+  [week4-demo-tx-log.md](week4-demo-tx-log.md).
 
-## 7. Tx hash'lerini topla
+## 7. Collect the tx hashes
 
-Video çekimi sırasında oluşan işlemlerin hash'lerini toplamanın en kolay yolu: her cüzdanın
-stellar.expert hesap sayfasını aç (`https://stellar.expert/explorer/testnet/account/<G-adresi>`)
-ve son işlemleri listele; ya da Freighter'ın işlem geçmişinden her onaydan sonraki tx linkine tıkla.
-Bu listeyi [week4-demo-tx-log.md](week4-demo-tx-log.md)'ye "UI demo (video)" başlığı altında ekle.
+The easiest way to gather the transaction hashes generated during the recording: open each
+wallet's stellar.expert account page (`https://stellar.expert/explorer/testnet/account/<G-address>`)
+and list its recent transactions, or click through to the tx link Freighter shows after each
+approval. Add this list to [week4-demo-tx-log.md](week4-demo-tx-log.md) under a "UI demo
+(video)" heading.
