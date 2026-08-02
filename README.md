@@ -31,8 +31,22 @@ stellar contract build        # wasm32v1-none hedefine derle
 ## Testnet
 
 - **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
+- **Web app (canlı):** https://web-psi-liart-24.vercel.app
 - Uçtan uca doğrulama (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md)
 - Testnet hesapları: [docs/testnet-accounts.md](docs/testnet-accounts.md)
+
+## Web uygulaması
+
+```bash
+cd web
+npm install
+npm run dev      # http://localhost:3010 (bkz. .claude/launch.json)
+```
+
+Next.js 16 (App Router) + TypeScript + Tailwind v4. Kontrat entegrasyonu, `stellar contract
+bindings typescript` ile üretilen ve `web/src/lib/contracts/circle.ts`'e taşınan tip-güvenli
+client üzerinden; cüzdan bağlantısı Freighter (`@stellar/freighter-api`) ile. Ayrıntılar için
+[web/README.md](web/README.md).
 
 ## Durum
 
@@ -42,5 +56,5 @@ stellar contract build        # wasm32v1-none hedefine derle
 - [x] create_circle / join_circle
 - [x] deposit / payout / reclaim
 - [x] Testnet deploy + CLI uçtan uca doğrulama
-- [ ] Web uygulaması (Freighter)
+- [x] Web uygulaması (Freighter) — canlı Vercel URL'de, gerçek testnet kontratına bağlı
 - [ ] Demo + evidence paketi
