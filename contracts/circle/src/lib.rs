@@ -4,13 +4,14 @@ mod errors;
 mod storage;
 mod types;
 
-use soroban_sdk::{contract, contractimpl, Address, Env, Vec};
+use soroban_sdk::{contract, contractimpl, token::TokenClient, Address, Env, Vec};
 
 pub use errors::Error;
 pub use types::{Circle, CircleStatus};
 
 use storage::{
-    get_circle, is_joined, next_circle_id, set_circle, set_joined,
+    clear_deposited, get_circle, has_deposited, is_joined, next_circle_id, set_circle,
+    set_deposited, set_joined,
 };
 
 #[contract]
@@ -111,6 +112,106 @@ impl CircleContract {
         Ok(())
     }
 
+    /// Pays a member's fixed contribution into the contract for the round
+    /// currently being funded. Rejects non-members, members who already
+    /// deposited this round, and circles that are not yet `Active`.
+    pub fn deposit(env: Env, circle_id: u64, member: Address) -> Result<(), Error> {
+        member.require_auth();
+
+        let mut circle = get_circle(&env, circle_id)?;
+        if circle.status != CircleStatus::Active {
+            return Err(Error::CircleNotActive);
+        }
+        if !circle.members.iter().any(|m| m == member) {
+            return Err(Error::NotMember);
+        }
+        if has_deposited(&env, circle_id, circle.round_index, &member) {
+            return Err(Error::AlreadyDepositedThisRound);
+        }
+
+        let token_client = TokenClient::new(&env, &circle.token);
+        token_client.transfer(
+            &member,
+            &env.current_contract_address(),
+            &circle.contribution_amount,
+        );
+
+        set_deposited(&env, circle_id, circle.round_index, &member);
+        circle.round_deposit_count += 1;
+        set_circle(&env, circle_id, &circle);
+
+        Ok(())
+    }
+
+    /// Releases the full round pool to the member whose turn it is, but
+    /// only once every member has deposited for the current round.
+    /// Callable by anyone — the invariant is enforced by contract state,
+    /// not by caller identity, so no single party can block or gate a
+    /// payout that is otherwise due.
+    pub fn payout(env: Env, circle_id: u64) -> Result<(), Error> {
+        let mut circle = get_circle(&env, circle_id)?;
+        if circle.status != CircleStatus::Active {
+            return Err(Error::CircleNotActive);
+        }
+        if circle.round_deposit_count != circle.members.len() {
+            return Err(Error::RoundNotComplete);
+        }
+
+        let recipient = circle.payout_order.get(circle.round_index).unwrap();
+        let pool = circle.contribution_amount * (circle.members.len() as i128);
+
+        let token_client = TokenClient::new(&env, &circle.token);
+        token_client.transfer(&env.current_contract_address(), &recipient, &pool);
+
+        for m in circle.members.iter() {
+            clear_deposited(&env, circle_id, circle.round_index, &m);
+        }
+
+        circle.round_index += 1;
+        circle.round_deposit_count = 0;
+        if circle.round_index == circle.payout_order.len() {
+            circle.status = CircleStatus::Completed;
+        } else {
+            circle.round_deadline = env.ledger().timestamp() + circle.round_timeout_secs;
+        }
+        set_circle(&env, circle_id, &circle);
+
+        Ok(())
+    }
+
+    /// Lets a member individually withdraw their own contribution for the
+    /// current round once its deadline has passed. This is the escape
+    /// hatch that keeps a stalled round from locking funds indefinitely —
+    /// it cannot be blocked by an uncooperative member because it only
+    /// ever moves the caller's own deposit.
+    pub fn reclaim(env: Env, circle_id: u64, member: Address) -> Result<(), Error> {
+        member.require_auth();
+
+        let mut circle = get_circle(&env, circle_id)?;
+        if circle.status != CircleStatus::Active {
+            return Err(Error::CircleNotActive);
+        }
+        if env.ledger().timestamp() < circle.round_deadline {
+            return Err(Error::RoundNotTimedOut);
+        }
+        if !has_deposited(&env, circle_id, circle.round_index, &member) {
+            return Err(Error::NothingToReclaim);
+        }
+
+        clear_deposited(&env, circle_id, circle.round_index, &member);
+        circle.round_deposit_count -= 1;
+        set_circle(&env, circle_id, &circle);
+
+        let token_client = TokenClient::new(&env, &circle.token);
+        token_client.transfer(
+            &env.current_contract_address(),
+            &member,
+            &circle.contribution_amount,
+        );
+
+        Ok(())
+    }
+
     /// Read-only view of a circle's full state.
     pub fn get_circle(env: Env, circle_id: u64) -> Result<Circle, Error> {
         get_circle(&env, circle_id)
@@ -119,6 +220,13 @@ impl CircleContract {
     /// Read-only view of whether a member has confirmed participation.
     pub fn has_joined(env: Env, circle_id: u64, member: Address) -> bool {
         is_joined(&env, circle_id, &member)
+    }
+
+    /// Read-only view of whether a member has deposited for the round
+    /// currently being funded.
+    pub fn has_deposited_current_round(env: Env, circle_id: u64, member: Address) -> Result<bool, Error> {
+        let circle = get_circle(&env, circle_id)?;
+        Ok(has_deposited(&env, circle_id, circle.round_index, &member))
     }
 }
 
