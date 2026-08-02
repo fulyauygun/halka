@@ -32,7 +32,10 @@ stellar contract build        # wasm32v1-none hedefine derle
 
 - **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
 - **Web app (canlı):** https://web-psi-liart-24.vercel.app
-- Uçtan uca doğrulama (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md)
+- Uçtan uca doğrulama (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md)
+- Mimari & kurulum: [docs/architecture.md](docs/architecture.md)
+- Evidence paketi (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
+- UI demo + video runbook (Deliverable 3, opsiyonel — kullanıcı tarafından tamamlanacak): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
 - Testnet hesapları: [docs/testnet-accounts.md](docs/testnet-accounts.md)
 
 ## Web uygulaması
@@ -57,4 +60,5 @@ client üzerinden; cüzdan bağlantısı Freighter (`@stellar/freighter-api`) il
 - [x] deposit / payout / reclaim
 - [x] Testnet deploy + CLI uçtan uca doğrulama
 - [x] Web uygulaması (Freighter) — canlı Vercel URL'de, gerçek testnet kontratına bağlı
-- [ ] Demo + evidence paketi
+- [x] 5 üyeli/5 round'luk tam demo döngüsü (CLI, gerçek testnet) + evidence paketi
+- [ ] UI + video demo (Deliverable 3, opsiyonel — kullanıcı kendi Freighter'ıyla tamamlayacak, bkz. runbook)
