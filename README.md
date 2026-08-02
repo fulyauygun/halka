@@ -24,17 +24,23 @@ zaman tek bir kişi veya kurum elinde tutmaz.
 ## Kontrat geliştirme
 
 ```bash
-cargo test --workspace        # unit testleri çalıştır
+cargo test --workspace        # unit testleri çalıştır (21 test)
 stellar contract build        # wasm32v1-none hedefine derle
 ```
+
+## Testnet
+
+- **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
+- Uçtan uca doğrulama (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md)
+- Testnet hesapları: [docs/testnet-accounts.md](docs/testnet-accounts.md)
 
 ## Durum
 
 - [x] Ortam kurulumu (Rust + wasm32v1-none + Stellar CLI)
 - [x] Workspace iskeleti
-- [ ] Circle/Member veri modeli
-- [ ] create_circle / join_circle
-- [ ] deposit / payout / reclaim
-- [ ] Testnet deploy
+- [x] Circle/Member veri modeli
+- [x] create_circle / join_circle
+- [x] deposit / payout / reclaim
+- [x] Testnet deploy + CLI uçtan uca doğrulama
 - [ ] Web uygulaması (Freighter)
 - [ ] Demo + evidence paketi
