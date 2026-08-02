@@ -1,21 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf3e4;
+  --foreground: #17312f;
+  --card: #fffaf0;
+  --card-border: #e3cd9d;
+  --turquoise: #0e93a0;
+  --turquoise-dark: #076b76;
+  --nazar-blue: #1c4f8c;
+  --nazar-blue-dark: #123663;
+  --terracotta: #c1440e;
+  --terracotta-dark: #96350b;
+  --gold: #d19a1f;
+  --gold-light: #f0c95c;
+  --muted: #6b5c44;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-turquoise: var(--turquoise);
+  --color-turquoise-dark: var(--turquoise-dark);
+  --color-nazar-blue: var(--nazar-blue);
+  --color-nazar-blue-dark: var(--nazar-blue-dark);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-dark: var(--terracotta-dark);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0c2224;
+    --foreground: #f4ead2;
+    --card: #123638;
+    --card-border: #1f5257;
+    --turquoise: #29b6c4;
+    --turquoise-dark: #1b8a95;
+    --nazar-blue: #4d84c9;
+    --nazar-blue-dark: #2e5a99;
+    --terracotta: #e2703a;
+    --terracotta-dark: #b5501f;
+    --gold: #e6b93a;
+    --gold-light: #f3d987;
+    --muted: #b9ab8c;
   }
 }
 
@@ -23,4 +56,30 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+}
+
+/* A faint lattice of diamonds — the kind of geometric motif found in kilim
+   weaves — tiled across the whole page at low opacity so it reads as
+   texture, not noise. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%23c1440e' stroke-width='1.5'%3E%3Cpath d='M30 2 L58 30 L30 58 L2 30 Z'/%3E%3Cpath d='M30 16 L44 30 L30 44 L16 30 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* A woven-ribbon border strip — diamonds in terracotta/gold on a turquoise
+   ground, echoing a kilim border pattern. Used under the header and above
+   the footer. */
+.kilim-strip {
+  height: 10px;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-size: 40px 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Crect width='40' height='10' fill='%230e93a0'/%3E%3Cpolygon points='20,0 32,5 20,10 8,5' fill='%23d19a1f'/%3E%3Cpolygon points='20,2.5 27,5 20,7.5 13,5' fill='%23c1440e'/%3E%3Cpolygon points='0,0 4,5 0,10' fill='%231c4f8c'/%3E%3Cpolygon points='40,0 36,5 40,10' fill='%231c4f8c'/%3E%3C/svg%3E");
 }

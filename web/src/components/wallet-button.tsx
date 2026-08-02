@@ -9,12 +9,12 @@ export function WalletButton() {
   if (address) {
     return (
       <div className="flex items-center gap-3">
-        <span className="rounded-full bg-emerald-500/10 px-3 py-1 font-mono text-sm text-emerald-600 dark:text-emerald-400">
+        <span className="rounded-full bg-turquoise/15 px-3 py-1 font-mono text-sm text-turquoise-dark dark:text-turquoise">
           {truncateAddress(address)}
         </span>
         <button
           onClick={disconnect}
-          className="text-sm text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
+          className="text-sm text-muted hover:text-terracotta"
         >
           Bağlantıyı kes
         </button>
@@ -27,11 +27,11 @@ export function WalletButton() {
       <button
         onClick={connect}
         disabled={isConnecting}
-        className="rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+        className="rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
       >
         {isConnecting ? "Bağlanıyor…" : "Freighter ile Bağlan"}
       </button>
-      {error && <p className="max-w-xs text-right text-xs text-red-500">{error}</p>}
+      {error && <p className="max-w-xs text-right text-xs text-terracotta">{error}</p>}
     </div>
   );
 }

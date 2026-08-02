@@ -103,11 +103,13 @@ export function CreateCircleForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 rounded-2xl border border-neutral-200 p-6 dark:border-neutral-800"
+      className="space-y-6 rounded-2xl border-2 border-card-border bg-card p-6 shadow-[0_4px_0_0_var(--card-border)]"
     >
       <div>
-        <h2 className="text-lg font-semibold">Yeni halka oluştur</h2>
-        <p className="mt-1 text-sm text-neutral-500">
+        <h2 className="text-lg font-semibold text-nazar-blue-dark dark:text-gold-light">
+          Yeni halka oluştur
+        </h2>
+        <p className="mt-1 text-sm text-muted">
           Üyeleri davet et, katkı miktarını belirle. Ödeme sırası, aşağıdaki üye sırasını
           takip eder.
         </p>
@@ -121,13 +123,13 @@ export function CreateCircleForm() {
               value={member}
               onChange={(e) => updateMember(index, e.target.value)}
               placeholder={`Üye ${index + 1} adresi (G…)`}
-              className="flex-1 rounded-lg border border-neutral-300 px-3 py-2 font-mono text-sm dark:border-neutral-700 dark:bg-neutral-900"
+              className="flex-1 rounded-lg border border-card-border bg-background px-3 py-2 font-mono text-sm outline-none focus:border-turquoise"
             />
             {members.length > 2 && (
               <button
                 type="button"
                 onClick={() => removeMember(index)}
-                className="rounded-lg px-3 text-sm text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                className="rounded-lg px-3 text-sm text-muted hover:bg-terracotta/10 hover:text-terracotta"
               >
                 Sil
               </button>
@@ -137,7 +139,7 @@ export function CreateCircleForm() {
         <button
           type="button"
           onClick={addMember}
-          className="text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
+          className="text-sm font-medium text-turquoise-dark hover:underline dark:text-turquoise"
         >
           + Üye ekle
         </button>
@@ -149,7 +151,7 @@ export function CreateCircleForm() {
           <select
             value={tokenId}
             onChange={(e) => setTokenId(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+            className="mt-1 w-full rounded-lg border border-card-border bg-background px-3 py-2 text-sm outline-none focus:border-turquoise"
           >
             {TOKEN_OPTIONS.map((t) => (
               <option key={t.id} value={t.id}>
@@ -165,7 +167,7 @@ export function CreateCircleForm() {
             min={1}
             value={timeoutHours}
             onChange={(e) => setTimeoutHours(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+            className="mt-1 w-full rounded-lg border border-card-border bg-background px-3 py-2 text-sm outline-none focus:border-turquoise"
           />
         </div>
       </div>
@@ -176,17 +178,17 @@ export function CreateCircleForm() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="10"
-          className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+          className="mt-1 w-full rounded-lg border border-card-border bg-background px-3 py-2 text-sm outline-none focus:border-turquoise"
         />
       </div>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-terracotta">{error}</p>}
 
       {address ? (
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
         >
           {isSubmitting ? "Oluşturuluyor…" : "Halkayı oluştur"}
         </button>
@@ -194,7 +196,7 @@ export function CreateCircleForm() {
         <button
           type="button"
           onClick={connect}
-          className="w-full rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
         >
           Devam etmek için cüzdanı bağla
         </button>

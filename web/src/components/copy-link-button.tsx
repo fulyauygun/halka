@@ -12,7 +12,7 @@ export function CopyLinkButton({ url }: { url: string }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       }}
-      className="mt-2 text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
+      className="mt-2 text-sm font-medium text-terracotta-dark hover:underline dark:text-gold-light"
     >
       {copied ? "Kopyalandı!" : "Linki kopyala"}
     </button>

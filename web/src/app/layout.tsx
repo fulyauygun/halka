@@ -5,6 +5,8 @@ import "./globals.css";
 
 import { WalletProvider } from "@/lib/wallet";
 import { WalletButton } from "@/components/wallet-button";
+import { NazarBead } from "@/components/nazar-bead";
+import { KilimStrip } from "@/components/kilim-strip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,15 +35,23 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <WalletProvider>
-          <header className="border-b border-neutral-200 px-6 py-4 dark:border-neutral-800">
+          <header className="bg-card px-6 py-4">
             <div className="mx-auto flex max-w-3xl items-center justify-between">
-              <Link href="/" className="text-lg font-semibold tracking-tight">
-                Halka
+              <Link href="/" className="flex items-center gap-2.5">
+                <NazarBead size={30} />
+                <span className="text-xl font-semibold tracking-tight text-foreground">
+                  Halka
+                </span>
               </Link>
               <WalletButton />
             </div>
           </header>
+          <KilimStrip />
           <div className="flex-1">{children}</div>
+          <KilimStrip />
+          <footer className="bg-card px-6 py-6 text-center text-xs text-muted">
+            Halka — Stellar Soroban üzerinde dijital altın günü · testnet
+          </footer>
         </WalletProvider>
       </body>
     </html>
