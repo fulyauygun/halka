@@ -1,64 +1,64 @@
-# Halka — Dijital "Altın Günü"
+# Halka — Digital "Altın Günü"
 
-Türkiye'deki geleneksel altın günü / rotating savings circle modelini Stellar Soroban üzerinde,
-custody riski olmadan dijitalleştiren bir dApp. Bir grup, sabit bir katkı miktarını her round'da
-öder; havuz, o round tamamlandığında sırası gelen üyeye otomatik olarak ödenir — parayı hiçbir
-zaman tek bir kişi veya kurum elinde tutmaz.
+A dApp that digitizes Türkiye's traditional altın günü / rotating savings circle model on
+Stellar Soroban, without custody risk. A group pays a fixed contribution every round; the pool
+is automatically paid out to the member whose turn it is once that round is complete — the money
+is never held by a single person or institution.
 
-30 günlük bir Stellar Instaward kapsamında geliştiriliyor.
+Built as part of a 30-day Stellar Instaward.
 
-## Proje Yapısı
+## Project structure
 
 ```
 .
 ├── contracts/
-│   └── circle/           # Rust/Soroban kontratı: create_circle, join_circle, deposit, payout, reclaim
+│   └── circle/           # Rust/Soroban contract: create_circle, join_circle, deposit, payout, reclaim
 │       ├── src/lib.rs
 │       └── src/test.rs
-├── web/                  # Next.js web uygulaması (Freighter cüzdan entegrasyonu) — Week 3
-├── docs/                 # Mimari doküman, demo transaction-hash log
+├── web/                  # Next.js web app (Freighter wallet integration) — Week 3
+├── docs/                 # Architecture doc, demo transaction-hash log
 ├── .github/workflows/    # CI: cargo test + stellar contract build
 └── Cargo.toml            # Workspace root
 ```
 
-## Kontrat geliştirme
+## Contract development
 
 ```bash
-cargo test --workspace        # unit testleri çalıştır (21 test)
-stellar contract build        # wasm32v1-none hedefine derle
+cargo test --workspace        # run unit tests (21 tests)
+stellar contract build        # build for the wasm32v1-none target
 ```
 
 ## Testnet
 
 - **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
-- **Web app (canlı):** https://web-psi-liart-24.vercel.app
-- Uçtan uca doğrulama (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md)
-- Mimari & kurulum: [docs/architecture.md](docs/architecture.md)
-- Evidence paketi (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
-- UI demo + video runbook (Deliverable 3, opsiyonel — kullanıcı tarafından tamamlanacak): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
-- Testnet hesapları: [docs/testnet-accounts.md](docs/testnet-accounts.md)
+- **Web app (live):** https://web-psi-liart-24.vercel.app
+- End-to-end verification (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md)
+- Architecture & setup: [docs/architecture.md](docs/architecture.md)
+- Evidence package (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
+- UI demo + video runbook (Deliverable 3, optional — to be completed by the user): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
+- Testnet accounts: [docs/testnet-accounts.md](docs/testnet-accounts.md)
 
-## Web uygulaması
+## Web app
 
 ```bash
 cd web
 npm install
-npm run dev      # http://localhost:3010 (bkz. .claude/launch.json)
+npm run dev      # http://localhost:3010 (see .claude/launch.json)
 ```
 
-Next.js 16 (App Router) + TypeScript + Tailwind v4. Kontrat entegrasyonu, `stellar contract
-bindings typescript` ile üretilen ve `web/src/lib/contracts/circle.ts`'e taşınan tip-güvenli
-client üzerinden; cüzdan bağlantısı Freighter (`@stellar/freighter-api`) ile. Ayrıntılar için
-[web/README.md](web/README.md).
+Next.js 16 (App Router) + TypeScript + Tailwind v4. Contract integration goes through a
+type-safe client generated with `stellar contract bindings typescript` and relocated to
+`web/src/lib/contracts/circle.ts`; wallet connection is via Freighter (`@stellar/freighter-api`).
+See [web/README.md](web/README.md) for details.
 
-## Durum
+## Status
 
-- [x] Ortam kurulumu (Rust + wasm32v1-none + Stellar CLI)
-- [x] Workspace iskeleti
-- [x] Circle/Member veri modeli
+- [x] Environment setup (Rust + wasm32v1-none + Stellar CLI)
+- [x] Workspace scaffold
+- [x] Circle/Member data model
 - [x] create_circle / join_circle
 - [x] deposit / payout / reclaim
-- [x] Testnet deploy + CLI uçtan uca doğrulama
-- [x] Web uygulaması (Freighter) — canlı Vercel URL'de, gerçek testnet kontratına bağlı
-- [x] 5 üyeli/5 round'luk tam demo döngüsü (CLI, gerçek testnet) + evidence paketi
-- [ ] UI + video demo (Deliverable 3, opsiyonel — kullanıcı kendi Freighter'ıyla tamamlayacak, bkz. runbook)
+- [x] Testnet deploy + CLI end-to-end verification
+- [x] Web app (Freighter) — live on Vercel, connected to the real testnet contract
+- [x] Full 5-member/5-round demo cycle (CLI, real testnet) + evidence package
+- [ ] UI + video demo (Deliverable 3, optional — to be completed by the user with their own Freighter wallet, see runbook)
