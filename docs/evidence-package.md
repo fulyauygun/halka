@@ -11,7 +11,7 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Testnet contract ID | `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q` |
 | Explorer | https://stellar.expert/explorer/testnet/contract/CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q |
 | Unit tests | 21 tests, `cargo test --workspace` — runs in CI on every push |
-| End-to-end verification | [docs/week2-e2e-verification.md](week2-e2e-verification.md), [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) |
+| End-to-end verification | [docs/week2-e2e-verification.md](week2-e2e-verification.md), [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) (native XLM SAC), [docs/usdc-verification.md](usdc-verification.md) (real testnet Circle USDC SAC, per the SOW's "testnet USDC" spec) |
 
 ## Deliverable 2 — Web application
 
@@ -27,7 +27,8 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Item | Value |
 | --- | --- |
 | Full 5-member / 5-round cycle (CLI, real testnet) | [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) — 36 transactions, all independently verifiable on stellar.expert |
-| UI + video (real Freighter wallet) | To be completed by the user — see [docs/ui-demo-runbook.md](ui-demo-runbook.md) |
+| Full 3-member / 3-round cycle with real testnet USDC (CLI, real testnet) | [docs/usdc-verification.md](usdc-verification.md) — 11 transactions, all independently verifiable on stellar.expert |
+| UI + video (real Freighter wallet) | To be completed by the user — see [docs/ui-demo-runbook.md](ui-demo-runbook.md). This is the one remaining piece: it requires entering a wallet private key into the browser and clicking through Freighter's own signing prompts, which cannot be done by an AI agent regardless of authorization — it has to be a human at the keyboard. |
 | README / architecture doc | [docs/architecture.md](architecture.md) |
 
 ## General
