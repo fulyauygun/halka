@@ -6,13 +6,14 @@ export const NATIVE_TOKEN_ID =
   "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
 
 /** Circle's official testnet USDC Stellar Asset Contract. Requires the
- * member's wallet to hold testnet USDC (see https://faucet.circle.com). */
+ * member's wallet to hold testnet USDC — fastest via the Sozu faucet
+ * (`npx @sozu/faucet@latest claim <G_ADDRESS>`), or https://faucet.circle.com. */
 export const USDC_TOKEN_ID =
   "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA";
 
 export const TOKEN_OPTIONS = [
-  { id: NATIVE_TOKEN_ID, label: "XLM (testnet, faucet gerektirmez)", decimals: 7 },
-  { id: USDC_TOKEN_ID, label: "USDC (testnet, faucet.circle.com gerekir)", decimals: 7 },
+  { id: NATIVE_TOKEN_ID, label: "XLM (testnet, no faucet needed)", decimals: 7 },
+  { id: USDC_TOKEN_ID, label: "USDC (testnet, fast via npx @sozu/faucet@latest)", decimals: 7 },
 ] as const;
 
 export function stellarExpertTxUrl(hash: string) {
