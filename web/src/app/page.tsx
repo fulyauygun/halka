@@ -7,7 +7,7 @@ export default function Home() {
       <div className="flex items-center gap-3">
         <NazarBead size={22} />
         <span className="text-xs font-semibold tracking-[0.2em] text-terracotta uppercase">
-          Dijital Altın Günü
+          Digital Altın Günü
         </span>
         <NazarBead size={22} />
       </div>
@@ -15,9 +15,9 @@ export default function Home() {
         Halka
       </h1>
       <p className="mt-4 text-muted">
-        Bir grup, sabit bir katkı miktarını her round&apos;da öder; havuz o round
-        tamamlandığında sırası gelen üyeye otomatik olarak ödenir. Para hiçbir zaman tek bir
-        kişinin veya kurumun elinde tutulmaz — kural, Stellar Soroban kontratında yazılıdır.
+        A group pays a fixed contribution every round; the pool is automatically paid out to
+        the member whose turn it is once that round is complete. The money is never held by a
+        single person or institution — the rule is written into the Stellar Soroban contract.
       </p>
       <div className="mt-10">
         <CreateCircleForm />

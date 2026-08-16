@@ -11,9 +11,9 @@ import { CopyLinkButton } from "@/components/copy-link-button";
 import { NazarBead } from "@/components/nazar-bead";
 
 const STATUS_LABEL: Record<string, string> = {
-  Forming: "Katılım bekleniyor",
-  Active: "Aktif",
-  Completed: "Tamamlandı",
+  Forming: "Awaiting join",
+  Active: "Active",
+  Completed: "Completed",
 };
 
 const STATUS_STYLE: Record<string, string> = {
@@ -51,7 +51,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
     return (
       <div className="flex items-center gap-3 text-muted">
         <NazarBead size={22} spin />
-        <span>Halka bilgileri yükleniyor…</span>
+        <span>Loading circle info…</span>
       </div>
     );
   }
@@ -93,7 +93,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
           </span>
         </div>
         <p className="mt-1 text-sm text-muted">
-          {memberCount} üye · Katkı: {formatTokenAmount(circle.contribution_amount)} / round
+          {memberCount} members · Contribution: {formatTokenAmount(circle.contribution_amount)} / round
         </p>
       </div>
 
@@ -104,7 +104,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
               Round {circle.round_index + 1} / {memberCount}
             </span>
             <span className="text-muted">
-              {circle.round_deposit_count} / {memberCount} üye yatırdı
+              {circle.round_deposit_count} / {memberCount} members deposited
             </span>
           </div>
           <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-background">
@@ -117,26 +117,26 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
           </div>
           {status === "Active" && (
             <p className="mt-2 text-xs text-muted">
-              Sıradaki ödeme:{" "}
+              Next payout:{" "}
               <span className="font-mono">
                 {truncateAddress(circle.payout_order[circle.round_index])}
               </span>{" "}
-              · Round bitiş: {new Date(roundDeadlineMs).toLocaleString("tr-TR")}
-              {isTimedOut && " (süresi doldu — geri çekim açık)"}
+              · Round ends: {new Date(roundDeadlineMs).toLocaleString("en-US")}
+              {isTimedOut && " (expired — reclaim open)"}
             </p>
           )}
         </div>
       )}
 
       <div>
-        <h2 className="text-sm font-medium text-muted">Üyeler</h2>
+        <h2 className="text-sm font-medium text-muted">Members</h2>
         <ul className="mt-2 divide-y divide-card-border">
           {members.map((m) => (
             <li key={m.address} className="flex items-center justify-between py-2 text-sm">
               <span className="font-mono">{truncateAddress(m.address)}</span>
               <span className="flex gap-2 text-xs text-muted">
-                {status === "Forming" && (m.joined ? "Katıldı" : "Bekleniyor")}
-                {status === "Active" && (m.depositedThisRound ? "Bu round yatırdı" : "Bekleniyor")}
+                {status === "Forming" && (m.joined ? "Joined" : "Pending")}
+                {status === "Active" && (m.depositedThisRound ? "Deposited this round" : "Pending")}
                 {status === "Completed" && "—"}
               </span>
             </li>
@@ -146,7 +146,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
       {circle.round_index > 0 && (
         <div>
-          <h2 className="text-sm font-medium text-muted">Ödeme geçmişi</h2>
+          <h2 className="text-sm font-medium text-muted">Payout history</h2>
           <ul className="mt-2 space-y-1 text-sm">
             {circle.payout_order.slice(0, circle.round_index).map((recipient, i) => (
               <li key={i} className="flex justify-between">
@@ -166,20 +166,20 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
             onClick={connect}
             className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm"
           >
-            Devam etmek için cüzdanı bağla
+            Connect wallet to continue
           </button>
         )}
 
         {address && !isMember && status === "Forming" && (
           <p className="text-sm text-muted">
-            Bağlı adresiniz bu halkanın üye listesinde değil. Katılabilmek için davet linkiyle
-            eklenmeniz gerekir.
+            Your connected address is not on this circle&apos;s member list. You need to be
+            added via an invite link to join.
           </p>
         )}
 
         {canJoin && (
           <ActionButton
-            label="Halkaya katıl"
+            label="Join circle"
             pending={pendingAction === "join"}
             onClick={() =>
               runAction("join", async () => {
@@ -194,7 +194,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
         {canDeposit && (
           <ActionButton
-            label={`Katkı payını yatır (${formatTokenAmount(circle.contribution_amount)})`}
+            label={`Deposit contribution (${formatTokenAmount(circle.contribution_amount)})`}
             pending={pendingAction === "deposit"}
             onClick={() =>
               runAction("deposit", async () => {
@@ -209,7 +209,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
         {canReclaim && (
           <ActionButton
-            label="Katkımı geri çek"
+            label="Reclaim my contribution"
             pending={pendingAction === "reclaim"}
             variant="secondary"
             onClick={() =>
@@ -225,7 +225,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
         {canPayout && (
           <ActionButton
-            label="Payout'u tetikle"
+            label="Trigger payout"
             pending={pendingAction === "payout"}
             variant="secondary"
             onClick={() =>
@@ -243,7 +243,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
       {status === "Forming" && joinUrl && (
         <div className="rounded-xl border-2 border-dashed border-gold/50 bg-gold/5 p-4">
-          <p className="text-sm font-medium">Davet linki</p>
+          <p className="text-sm font-medium">Invite link</p>
           <p className="mt-1 break-all font-mono text-xs text-muted">{joinUrl}</p>
           <CopyLinkButton url={joinUrl} />
         </div>
@@ -273,7 +273,7 @@ function ActionButton({
           : "w-full rounded-full border-2 border-gold/60 px-4 py-2.5 text-sm font-medium text-terracotta-dark transition hover:bg-gold/10 disabled:opacity-50 dark:text-gold-light"
       }
     >
-      {pending ? "İşleniyor…" : label}
+      {pending ? "Processing…" : label}
     </button>
   );
 }

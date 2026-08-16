@@ -14,7 +14,7 @@ export function CopyLinkButton({ url }: { url: string }) {
       }}
       className="mt-2 text-sm font-medium text-terracotta-dark hover:underline dark:text-gold-light"
     >
-      {copied ? "Kopyalandı!" : "Linki kopyala"}
+      {copied ? "Copied!" : "Copy link"}
     </button>
   );
 }

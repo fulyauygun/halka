@@ -38,25 +38,25 @@ export function CreateCircleForm() {
     setError(null);
 
     if (!address) {
-      setError("Önce cüzdanınızı bağlamalısınız.");
+      setError("Connect your wallet first.");
       return;
     }
 
     const trimmedMembers = members.map((m) => m.trim());
     if (trimmedMembers.some((m) => !m)) {
-      setError("Tüm üye adresleri doldurulmalı.");
+      setError("All member addresses must be filled in.");
       return;
     }
     if (trimmedMembers.some((m) => !StrKey.isValidEd25519PublicKey(m))) {
-      setError("Bir veya daha fazla üye adresi geçerli bir Stellar adresi (G…) değil.");
+      setError("One or more member addresses is not a valid Stellar address (G…).");
       return;
     }
     if (new Set(trimmedMembers).size !== trimmedMembers.length) {
-      setError("Üye listesinde tekrar eden bir adres var.");
+      setError("The member list has a duplicate address.");
       return;
     }
     if (trimmedMembers.length < 2) {
-      setError("Bir halka en az 2 üyeden oluşmalı.");
+      setError("A circle must have at least 2 members.");
       return;
     }
 
@@ -70,7 +70,7 @@ export function CreateCircleForm() {
 
     const hours = Number(timeoutHours);
     if (!Number.isFinite(hours) || hours <= 0) {
-      setError("Round süresi sıfırdan büyük olmalı.");
+      setError("Round duration must be greater than zero.");
       return;
     }
     const roundTimeoutSecs = BigInt(Math.round(hours * 3600));
@@ -107,22 +107,22 @@ export function CreateCircleForm() {
     >
       <div>
         <h2 className="text-lg font-semibold text-nazar-blue-dark dark:text-gold-light">
-          Yeni halka oluştur
+          Create a new circle
         </h2>
         <p className="mt-1 text-sm text-muted">
-          Üyeleri davet et, katkı miktarını belirle. Ödeme sırası, aşağıdaki üye sırasını
-          takip eder.
+          Invite members and set the contribution amount. The payout order follows the
+          member order below.
         </p>
       </div>
 
       <div className="space-y-3">
-        <label className="text-sm font-medium">Üyeler</label>
+        <label className="text-sm font-medium">Members</label>
         {members.map((member, index) => (
           <div key={index} className="flex gap-2">
             <input
               value={member}
               onChange={(e) => updateMember(index, e.target.value)}
-              placeholder={`Üye ${index + 1} adresi (G…)`}
+              placeholder={`Member ${index + 1} address (G…)`}
               className="flex-1 rounded-lg border border-card-border bg-background px-3 py-2 font-mono text-sm outline-none focus:border-turquoise"
             />
             {members.length > 2 && (
@@ -131,7 +131,7 @@ export function CreateCircleForm() {
                 onClick={() => removeMember(index)}
                 className="rounded-lg px-3 text-sm text-muted hover:bg-terracotta/10 hover:text-terracotta"
               >
-                Sil
+                Remove
               </button>
             )}
           </div>
@@ -141,7 +141,7 @@ export function CreateCircleForm() {
           onClick={addMember}
           className="text-sm font-medium text-turquoise-dark hover:underline dark:text-turquoise"
         >
-          + Üye ekle
+          + Add member
         </button>
       </div>
 
@@ -161,7 +161,7 @@ export function CreateCircleForm() {
           </select>
         </div>
         <div>
-          <label className="text-sm font-medium">Round süresi (saat)</label>
+          <label className="text-sm font-medium">Round duration (hours)</label>
           <input
             type="number"
             min={1}
@@ -173,7 +173,7 @@ export function CreateCircleForm() {
       </div>
 
       <div>
-        <label className="text-sm font-medium">Katkı miktarı (üye başı / round)</label>
+        <label className="text-sm font-medium">Contribution amount (per member / round)</label>
         <input
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -190,7 +190,7 @@ export function CreateCircleForm() {
           disabled={isSubmitting}
           className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
         >
-          {isSubmitting ? "Oluşturuluyor…" : "Halkayı oluştur"}
+          {isSubmitting ? "Creating…" : "Create circle"}
         </button>
       ) : (
         <button
@@ -198,7 +198,7 @@ export function CreateCircleForm() {
           onClick={connect}
           className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
         >
-          Devam etmek için cüzdanı bağla
+          Connect wallet to continue
         </button>
       )}
     </form>

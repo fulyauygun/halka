@@ -16,7 +16,7 @@ export function WalletButton() {
           onClick={disconnect}
           className="text-sm text-muted hover:text-terracotta"
         >
-          Bağlantıyı kes
+          Disconnect
         </button>
       </div>
     );
@@ -29,7 +29,7 @@ export function WalletButton() {
         disabled={isConnecting}
         className="rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90 disabled:opacity-50"
       >
-        {isConnecting ? "Bağlanıyor…" : "Freighter ile Bağlan"}
+        {isConnecting ? "Connecting…" : "Connect with Freighter"}
       </button>
       {error && <p className="max-w-xs text-right text-xs text-terracotta">{error}</p>}
     </div>

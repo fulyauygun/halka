@@ -11,16 +11,16 @@ export function formatTokenAmount(stroops: bigint, decimals = 7): string {
 
 export function parseTokenAmount(input: string, decimals = 7): bigint {
   const trimmed = input.trim();
-  if (!trimmed) throw new Error("Miktar boş olamaz.");
+  if (!trimmed) throw new Error("Amount cannot be empty.");
   const [wholePart, fracPart = ""] = trimmed.split(".");
   if (!/^\d*$/.test(wholePart) || !/^\d*$/.test(fracPart) || (!wholePart && !fracPart)) {
-    throw new Error("Geçersiz miktar.");
+    throw new Error("Invalid amount.");
   }
   const paddedFrac = (fracPart + "0".repeat(decimals)).slice(0, decimals);
   const whole = wholePart ? BigInt(wholePart) : 0n;
   const frac = paddedFrac ? BigInt(paddedFrac) : 0n;
   const amount = whole * 10n ** BigInt(decimals) + frac;
-  if (amount <= 0n) throw new Error("Miktar sıfırdan büyük olmalı.");
+  if (amount <= 0n) throw new Error("Amount must be greater than zero.");
   return amount;
 }
 

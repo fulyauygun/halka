@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Halka — Dijital Altın Günü",
-  description: "Stellar Soroban üzerinde custody riski olmayan rotating savings circle.",
+  title: 'Halka — Digital "Altın Günü"',
+  description: "A custody-risk-free rotating savings circle on Stellar Soroban.",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="tr"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -50,7 +50,7 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
           <KilimStrip />
           <footer className="bg-card px-6 py-6 text-center text-xs text-muted">
-            Halka — Stellar Soroban üzerinde dijital altın günü · testnet
+            Halka — a digital altın günü on Stellar Soroban · testnet
           </footer>
         </WalletProvider>
       </body>

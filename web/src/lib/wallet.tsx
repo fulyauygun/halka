@@ -37,7 +37,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       const connected = await freighter.isConnected();
       if (connected.error || !connected.isConnected) {
         throw new Error(
-          "Freighter cüzdan uzantısı bulunamadı. Lütfen freighter.app adresinden kurun."
+          "Freighter wallet extension not found. Please install it from freighter.app."
         );
       }
 
@@ -48,7 +48,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       if (network.error) throw new Error(network.error.message);
       if (network.networkPassphrase !== networks.testnet.networkPassphrase) {
         throw new Error(
-          "Freighter cüzdanınız Testnet ağında değil. Lütfen Freighter ayarlarından Testnet'e geçin."
+          "Your Freighter wallet is not on the Testnet network. Please switch to Testnet in Freighter's settings."
         );
       }
 

@@ -20,7 +20,7 @@ copied back over — it isn't kept as a standalone npm package).
 - `src/lib/circle-client.ts` — read-only and wallet-signed client constructors
 - `src/lib/wallet.tsx` — Freighter connection context (`useWallet()`)
 - `src/lib/use-circle.ts` — SWR-based hook for reading circle state
-- `src/lib/errors.ts` — maps contract error codes to Turkish user-facing messages
+- `src/lib/errors.ts` — maps contract error codes to plain-language user-facing messages
 
 ## Pages
 

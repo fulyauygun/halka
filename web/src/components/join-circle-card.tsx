@@ -21,7 +21,7 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
     return (
       <div className="flex items-center gap-3 text-muted">
         <NazarBead size={22} spin />
-        <span>Halka bilgileri yükleniyor…</span>
+        <span>Loading circle info…</span>
       </div>
     );
   }
@@ -56,16 +56,16 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
     <div className="space-y-6 rounded-2xl border-2 border-card-border bg-card p-6 shadow-[0_4px_0_0_var(--card-border)]">
       <div className="flex items-center gap-2.5">
         <NazarBead size={24} />
-        <h1 className="text-xl font-semibold">Halka #{circleId.toString()}&apos;e katıl</h1>
+        <h1 className="text-xl font-semibold">Join Halka #{circleId.toString()}</h1>
       </div>
       <p className="-mt-3 text-sm text-muted">
-        {members.length} üye · Katkı: {formatTokenAmount(circle.contribution_amount)} / round ·
-        Oluşturan: <span className="font-mono">{truncateAddress(circle.creator)}</span>
+        {members.length} members · Contribution: {formatTokenAmount(circle.contribution_amount)} / round ·
+        Created by: <span className="font-mono">{truncateAddress(circle.creator)}</span>
       </p>
 
       {circle.status.tag !== "Forming" && (
         <p className="text-sm text-gold">
-          Bu halka artık katılıma açık değil — davetler kapandı.
+          This circle is no longer open for joining — invitations are closed.
         </p>
       )}
 
@@ -77,20 +77,21 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
               disabled={isConnecting}
               className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm disabled:opacity-50"
             >
-              {isConnecting ? "Bağlanıyor…" : "Freighter ile bağlan"}
+              {isConnecting ? "Connecting…" : "Connect with Freighter"}
             </button>
           )}
 
           {address && !isMember && (
             <p className="text-sm text-terracotta">
-              Bağlı adresiniz ({truncateAddress(address)}) bu halkanın üye listesinde değil.
-              Yanlış cüzdanla bağlandıysanız Freighter&apos;dan hesap değiştirip tekrar deneyin.
+              Your connected address ({truncateAddress(address)}) is not on this circle&apos;s
+              member list. If you connected the wrong wallet, switch accounts in Freighter and
+              try again.
             </p>
           )}
 
           {address && isMember && alreadyJoined && (
             <p className="text-sm text-turquoise-dark dark:text-turquoise">
-              Zaten katıldınız — halka sayfasına gidebilirsiniz.
+              You&apos;ve already joined — you can go to the circle page.
             </p>
           )}
 
@@ -100,7 +101,7 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
               disabled={isJoining}
               className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm disabled:opacity-50"
             >
-              {isJoining ? "Katılınıyor…" : "Katıl"}
+              {isJoining ? "Joining…" : "Join"}
             </button>
           )}
 
@@ -112,7 +113,7 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
         href={`/circle/${circleId}`}
         className="block text-center text-sm text-muted hover:text-turquoise-dark hover:underline"
       >
-        Halka sayfasına git
+        Go to circle page
       </a>
     </div>
   );
