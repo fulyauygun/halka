@@ -32,7 +32,7 @@ stellar contract build        # build for the wasm32v1-none target
 
 - **Contract ID:** `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q`
 - **Web app (live):** https://web-psi-liart-24.vercel.app
-- End-to-end verification (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md)
+- End-to-end verification (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md) (native XLM SAC), [docs/usdc-verification.md](docs/usdc-verification.md) (real testnet Circle USDC SAC)
 - Architecture & setup: [docs/architecture.md](docs/architecture.md)
 - Evidence package (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
 - UI demo + video runbook (Deliverable 3, optional — to be completed by the user): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
@@ -61,4 +61,5 @@ See [web/README.md](web/README.md) for details.
 - [x] Testnet deploy + CLI end-to-end verification
 - [x] Web app (Freighter) — live on Vercel, connected to the real testnet contract
 - [x] Full 5-member/5-round demo cycle (CLI, real testnet) + evidence package
+- [x] Full 3-member/3-round demo cycle with real testnet USDC (CLI, real testnet)
 - [ ] UI + video demo (Deliverable 3, optional — to be completed by the user with their own Freighter wallet, see runbook)

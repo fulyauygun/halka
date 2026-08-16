@@ -35,13 +35,17 @@ extension).
 
 Live app: **https://web-psi-liart-24.vercel.app**
 
-circle_id 0 and 1 are already used/completed — you'll create a fresh circle_id (likely `2`) for
-the video.
+circle_id 0, 1, and 3 are already used/completed — you'll create a fresh circle_id (likely `4`)
+for the video.
 
 1. In Freighter, switch to the **member1** account, connect to the site.
 2. On the home page, fill in the "Create a new circle" form:
    - Members: member1, member2, member3, member4, member5's G… addresses (`stellar keys public-key member1`, etc.)
-   - Token: **XLM (testnet, no faucet needed)** — so you can proceed right away without waiting on a faucet
+   - Token: **XLM (testnet, no faucet needed)** — so you can proceed right away without waiting on a faucet.
+     If you'd rather have the video itself be USDC-denominated (matching the SOW's literal wording),
+     the [USDC CLI verification](usdc-verification.md) already proves the contract/token path works —
+     you can fund member1-5 with testnet USDC via the Sozu faucet (`npx @sozu/faucet@latest claim <G_ADDRESS>`,
+     needs an existing trustline on that account) and select USDC as the token in the form instead.
    - Round duration: keep it short (e.g. 1 hour) — you won't actually be waiting during the demo anyway
    - Contribution amount: a small value (e.g. 1)
 3. Click "Create circle" and approve the signature in Freighter. You'll land on `/circle/{id}` —
