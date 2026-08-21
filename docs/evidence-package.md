@@ -21,6 +21,7 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Source | [web/src](../web/src) |
 | Flows | Circle creation (`/`), join via invite (`/circle/[id]/join`), round-status dashboard + deposit/payout/reclaim (`/circle/[id]`) |
 | Proof of live contract connection | Circles #0 and #1 render on the dashboard with correct, live state — matching the tx-hash logs above exactly |
+| Screenshots | [docs/screenshots/](screenshots/) — [home / create-circle form](screenshots/01-home-create-circle.png), [circle #0 dashboard, completed](screenshots/02-circle-0-completed.png), [circle #1 dashboard, completed](screenshots/03-circle-1-completed.png), [join flow, closed-invitation state](screenshots/04-join-flow-closed.png). Captured directly from the live URL above during Ambassador review. |
 
 ## Deliverable 3 — Demo (optional)
 
