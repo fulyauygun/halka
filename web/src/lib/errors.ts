@@ -24,14 +24,21 @@ export function contractErrorMessage(name: string | undefined): string {
 /** Turns any thrown error (wallet rejection, network failure, contract
  * error) into a message safe to show the user directly. */
 export function describeError(err: unknown): string {
-  const raw = err instanceof Error ? err.message : String(err);
+  const raw = err instanceof Error
+    ? err.message
+    : typeof err === "object" && err !== null && "message" in err
+      ? String(err.message)
+      : String(err);
   const lower = raw.toLowerCase();
 
+  if (lower.includes("user closed the modal")) {
+    return "Wallet selection was cancelled.";
+  }
   if (lower.includes("user declined") || lower.includes("rejected")) {
     return "The transaction was not approved in the wallet.";
   }
-  if (lower.includes("freighter") && lower.includes("not")) {
-    return "Freighter wallet extension not found. Please install it from freighter.app.";
+  if (lower.includes("wallet") && lower.includes("not found")) {
+    return "No compatible wallet was found. Install a supported wallet or select another option.";
   }
   if (lower.includes("failed to fetch") || lower.includes("network")) {
     return "Network error — could not reach the Stellar testnet. Please try again.";

@@ -102,3 +102,13 @@ deposits + 1 payout → `round_index` advances, new deadline set → after the l
 - No yield generation on the pool balance (V2 roadmap: Blend integration).
 - Fiat on/off ramps, a mobile app, and passkey onboarding are out of scope.
 - No security audit has been performed — this is a testnet/hackathon-scope prototype.
+
+## Month Two wallet and preflight implementation
+
+The web app uses Stellar Wallets Kit for Freighter/Varial, Albedo, and Hana on Testnet. Deposit,
+payout, and reclaim first refresh the contract state through Soroban RPC and check the active round,
+member deposit, payout, or timeout condition. The generated Soroban client simulates the unsigned
+invocation before the selected wallet signs it. Simulation is advisory; contract code remains the
+final enforcement layer. The app does not generate or store private keys, or sign transactions on
+the server. See [month-two-integration.md](month-two-integration.md) for the regression harness and
+manual acceptance status.

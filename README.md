@@ -15,8 +15,8 @@ Built as part of a 30-day Stellar Instaward.
 │   └── circle/           # Rust/Soroban contract: create_circle, join_circle, deposit, payout, reclaim
 │       ├── src/lib.rs
 │       └── src/test.rs
-├── web/                  # Next.js web app (Freighter wallet integration) — Week 3
-├── docs/                 # Architecture doc, demo transaction-hash log
+├── web/                  # Next.js web app (Stellar Wallets Kit, Soroban preflight)
+├── docs/                 # Architecture, verification logs and Month Two handoff
 ├── .github/workflows/    # CI: cargo test + stellar contract build
 └── Cargo.toml            # Workspace root
 ```
@@ -34,6 +34,7 @@ stellar contract build        # build for the wasm32v1-none target
 - **Web app (live):** https://web-psi-liart-24.vercel.app
 - End-to-end verification (tx-hash log): [docs/week2-e2e-verification.md](docs/week2-e2e-verification.md), [docs/week4-demo-tx-log.md](docs/week4-demo-tx-log.md) (native XLM SAC), [docs/usdc-verification.md](docs/usdc-verification.md) (real testnet Circle USDC SAC)
 - Architecture & setup: [docs/architecture.md](docs/architecture.md)
+- Month Two wallet integration, preflight, test harness and acceptance status: [docs/month-two-integration.md](docs/month-two-integration.md)
 - Evidence package (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
 - UI demo + video runbook (Deliverable 3, optional — to be completed by the user): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
 - Testnet accounts: [docs/testnet-accounts.md](docs/testnet-accounts.md)
@@ -48,8 +49,8 @@ npm run dev      # http://localhost:3010 (see .claude/launch.json)
 
 Next.js 16 (App Router) + TypeScript + Tailwind v4. Contract integration goes through a
 type-safe client generated with `stellar contract bindings typescript` and relocated to
-`web/src/lib/contracts/circle.ts`; wallet connection is via Freighter (`@stellar/freighter-api`).
-See [web/README.md](web/README.md) for details.
+`web/src/lib/contracts/circle.ts`; wallet connection uses Stellar Wallets Kit for Freighter/Varial,
+Albedo, and Hana. See [web/README.md](web/README.md) for details.
 
 ## Status
 
@@ -62,4 +63,7 @@ See [web/README.md](web/README.md) for details.
 - [x] Web app (Freighter) — live on Vercel, connected to the real testnet contract
 - [x] Full 5-member/5-round demo cycle (CLI, real testnet) + evidence package
 - [x] Full 3-member/3-round demo cycle with real testnet USDC (CLI, real testnet)
-- [ ] UI + video demo (Deliverable 3, optional — to be completed by the user with their own Freighter wallet, see runbook)
+- [x] Stellar Wallets Kit integration for Freighter/Varial, Albedo, and Hana
+- [x] Client-side Soroban RPC preflight for deposit, payout, and reclaim
+- [x] Testnet contract regression harness and security/integration documentation
+- [ ] Manual wallet acceptance matrix and UI demo video (requires browser wallets; see [docs/month-two-integration.md](docs/month-two-integration.md) and runbook)

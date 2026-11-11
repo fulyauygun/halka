@@ -1,7 +1,7 @@
 # Halka — web
 
 Next.js 16 (App Router) + TypeScript + Tailwind v4 web app. Talks to the Halka Soroban contract
-(`../contracts/circle`) through the Freighter wallet.
+(`../contracts/circle`) through Stellar Wallets Kit.
 
 ## Run it
 
@@ -9,6 +9,7 @@ Next.js 16 (App Router) + TypeScript + Tailwind v4 web app. Talks to the Halka S
 npm install
 npm run dev      # http://localhost:3010
 npm run build
+npm run test:contract # requires dedicated testnet account secrets; see ../docs/month-two-integration.md
 ```
 
 ## Contract integration
@@ -17,10 +18,16 @@ npm run build
 via `stellar contract bindings typescript` and relocated here (if regenerated, it needs to be
 copied back over — it isn't kept as a standalone npm package).
 
-- `src/lib/circle-client.ts` — read-only and wallet-signed client constructors
-- `src/lib/wallet.tsx` — Freighter connection context (`useWallet()`)
+- `src/lib/circle-client.ts` — read-only, wallet-signed, and transaction preflight helpers
+- `src/lib/wallet.tsx` — Stellar Wallets Kit connection context (`useWallet()`)
 - `src/lib/use-circle.ts` — SWR-based hook for reading circle state
 - `src/lib/errors.ts` — maps contract error codes to plain-language user-facing messages
+
+The picker is limited to Freighter/Varial, Albedo, and Hana. The Kit signs transactions and Soroban
+authorization entries in the selected wallet. Halka never stores private keys or signing material.
+Before deposit, payout, or reclaim, the app checks current circle state and constructs the unsigned
+Soroban call, which is simulated by Soroban RPC before the wallet is asked to sign. Simulation is
+advisory; contract rules remain authoritative. See [the Month Two integration report](../docs/month-two-integration.md).
 
 ## Pages
 

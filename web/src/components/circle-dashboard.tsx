@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getWalletClient } from "@/lib/circle-client";
+import { getWalletClient, preflightCircleAction } from "@/lib/circle-client";
 import { describeError } from "@/lib/errors";
 import { formatTokenAmount, truncateAddress } from "@/lib/format";
 import { useCircle } from "@/lib/use-circle";
@@ -72,7 +72,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
   const canJoin = status === "Forming" && self && !self.joined;
   const canDeposit = status === "Active" && self && !self.depositedThisRound;
-  const canPayout = status === "Active" && circle.round_deposit_count === memberCount;
+  const canPayout = Boolean(address) && status === "Active" && circle.round_deposit_count === memberCount;
   const canReclaim = status === "Active" && isTimedOut && self?.depositedThisRound;
 
   const joinUrl =
@@ -199,7 +199,9 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
             onClick={() =>
               runAction("deposit", async () => {
                 const client = getWalletClient(address!);
+                await preflightCircleAction(circleId, address!, "deposit");
                 const tx = await client.deposit({ circle_id: circleId, member: address! });
+                if (tx.result.isErr()) throw new Error(tx.result.unwrapErr().message);
                 const sent = await tx.signAndSend();
                 if (sent.result.isErr()) throw new Error(sent.result.unwrapErr().message);
               })
@@ -215,7 +217,9 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
             onClick={() =>
               runAction("reclaim", async () => {
                 const client = getWalletClient(address!);
+                await preflightCircleAction(circleId, address!, "reclaim");
                 const tx = await client.reclaim({ circle_id: circleId, member: address! });
+                if (tx.result.isErr()) throw new Error(tx.result.unwrapErr().message);
                 const sent = await tx.signAndSend();
                 if (sent.result.isErr()) throw new Error(sent.result.unwrapErr().message);
               })
@@ -230,9 +234,11 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
             variant="secondary"
             onClick={() =>
               runAction("payout", async () => {
-                const signerAddress = address ?? circle.creator;
+                const signerAddress = address!;
                 const client = getWalletClient(signerAddress);
+                await preflightCircleAction(circleId, signerAddress, "payout");
                 const tx = await client.payout({ circle_id: circleId });
+                if (tx.result.isErr()) throw new Error(tx.result.unwrapErr().message);
                 const sent = await tx.signAndSend();
                 if (sent.result.isErr()) throw new Error(sent.result.unwrapErr().message);
               })
