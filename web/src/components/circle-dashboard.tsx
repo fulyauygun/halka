@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { getWalletClient, preflightCircleAction } from "@/lib/circle-client";
+import { getWalletClient, preflightCircleAction, simulatePayoutEligibility } from "@/lib/circle-client";
 import { describeError } from "@/lib/errors";
 import { formatTokenAmount, truncateAddress } from "@/lib/format";
 import { useCircle } from "@/lib/use-circle";
@@ -73,6 +73,7 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
   const canJoin = status === "Forming" && self && !self.joined;
   const canDeposit = status === "Active" && self && !self.depositedThisRound;
   const canPayout = Boolean(address) && status === "Active" && circle.round_deposit_count === memberCount;
+  const canCheckPayout = status === "Active" && circle.round_deposit_count < memberCount;
   const canReclaim = status === "Active" && isTimedOut && self?.depositedThisRound;
 
   const joinUrl =
@@ -160,6 +161,21 @@ export function CircleDashboard({ circleId }: { circleId: bigint }) {
 
       <div className="space-y-3">
         {actionError && <p className="text-sm text-terracotta">{actionError}</p>}
+
+        {canCheckPayout && (
+          <button
+            disabled={pendingAction !== null}
+            onClick={() =>
+              runAction("payout-check", async () => {
+                await simulatePayoutEligibility(circleId);
+                setActionError("Payout is now eligible. Connect a wallet to trigger it.");
+              })
+            }
+            className="w-full rounded-full border border-card-border px-4 py-2.5 text-sm font-medium text-foreground disabled:opacity-50"
+          >
+            {pendingAction === "payout-check" ? "Checking payout eligibility…" : "Check why payout is unavailable"}
+          </button>
+        )}
 
         {!address && status !== "Completed" && (
           <button

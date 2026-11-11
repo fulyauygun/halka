@@ -77,14 +77,14 @@ export function JoinCircleCard({ circleId }: { circleId: bigint }) {
               disabled={isConnecting}
               className="w-full rounded-full bg-gradient-to-r from-turquoise to-nazar-blue px-4 py-2.5 text-sm font-medium text-white shadow-sm disabled:opacity-50"
             >
-              {isConnecting ? "Connecting…" : "Connect with Freighter"}
+              {isConnecting ? "Connecting…" : "Connect wallet"}
             </button>
           )}
 
           {address && !isMember && (
             <p className="text-sm text-terracotta">
               Your connected address ({truncateAddress(address)}) is not on this circle&apos;s
-              member list. If you connected the wrong wallet, switch accounts in Freighter and
+              member list. If you connected the wrong wallet, switch accounts in the selected wallet and
               try again.
             </p>
           )}

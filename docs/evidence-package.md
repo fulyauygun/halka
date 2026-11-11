@@ -17,7 +17,7 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 
 | Item | Value |
 | --- | --- |
-| Live URL | https://web-psi-liart-24.vercel.app |
+| Live URL | https://web-psi-liart-24.vercel.app — checked 2026-11-11; currently serves Turkish (`lang="tr"`) although repository source is English. Vercel project access/redeployment is still required; see [product analysis](customer-development/product-analysis.md). |
 | Source | [web/src](../web/src) |
 | Flows | Circle creation (`/`), join via invite (`/circle/[id]/join`), round-status dashboard + deposit/payout/reclaim (`/circle/[id]`) |
 | Wallets | Stellar Wallets Kit: Freighter/Varial, Albedo, Hana |
@@ -43,3 +43,4 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | CI status | [GitHub Actions](https://github.com/fulyauygun/halka/actions) — contracts + web jobs on every push |
 | Testnet accounts | [docs/testnet-accounts.md](testnet-accounts.md) |
 | Customer Development Plan | [docs/customer-development/README.md](customer-development/README.md) — interview and usability guides, anonymized participant tracker, summary template, and learning log. The planned five interviews and three sessions are not yet completed. |
+| Product desk review | [docs/customer-development/product-analysis.md](customer-development/product-analysis.md) — code and live-site observations only; not customer validation. It records the current Vercel language mismatch. |

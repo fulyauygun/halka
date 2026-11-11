@@ -54,6 +54,10 @@ Soroban RPC before `signAndSend` can request a wallet signature. A simulation re
 shown to the user and is not submitted. These checks can become stale; the contract enforces every
 rule again at execution.
 
+When a round is incomplete, the dashboard also offers a read-only “Check why payout is unavailable”
+action. It simulates `payout` through Soroban RPC and displays the mapped `RoundNotComplete`
+message without requesting a wallet signature or submitting a transaction.
+
 | Contract condition | Message shown before signature |
 | --- | --- |
 | `AlreadyDepositedThisRound` | You've already deposited your contribution for this round. |

@@ -61,7 +61,8 @@ Albedo, and Hana. See [web/README.md](web/README.md) for details.
 - [x] create_circle / join_circle
 - [x] deposit / payout / reclaim
 - [x] Testnet deploy + CLI end-to-end verification
-- [x] Web app (Freighter) — live on Vercel, connected to the real testnet contract
+- [x] Web app source (English UI, Stellar Wallets Kit, testnet contract integration)
+- [ ] Production Vercel matches the English source (listed URL currently serves Turkish; see [product analysis](docs/customer-development/product-analysis.md))
 - [x] Full 5-member/5-round demo cycle (CLI, real testnet) + evidence package
 - [x] Full 3-member/3-round demo cycle with real testnet USDC (CLI, real testnet)
 - [x] Stellar Wallets Kit integration for Freighter/Varial, Albedo, and Hana
@@ -69,3 +70,4 @@ Albedo, and Hana. See [web/README.md](web/README.md) for details.
 - [x] Testnet contract regression harness and security/integration documentation
 - [ ] Manual wallet acceptance matrix and UI demo video (requires browser wallets; see [docs/month-two-integration.md](docs/month-two-integration.md) and runbook)
 - [ ] Customer discovery: 5 structured interviews and 3 moderated testnet sessions (scripts and evidence tracker are prepared; see [docs/customer-development/](docs/customer-development/README.md))
+- Product desk review (not customer validation): [docs/customer-development/product-analysis.md](docs/customer-development/product-analysis.md)

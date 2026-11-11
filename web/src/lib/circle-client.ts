@@ -47,6 +47,14 @@ export function getWalletClient(address: string) {
   });
 }
 
+/** Simulates payout without signing or submitting it, so users can inspect eligibility. */
+export async function simulatePayoutEligibility(circleId: bigint): Promise<void> {
+  const tx = await getReadOnlyClient().payout({ circle_id: circleId });
+  if (tx.result.isErr()) {
+    throw new Error(contractErrorMessage(tx.result.unwrapErr().message));
+  }
+}
+
 /** Read live contract state and validate an action immediately before wallet approval. */
 export async function preflightCircleAction(
   circleId: bigint,
