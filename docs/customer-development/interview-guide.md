@@ -76,7 +76,7 @@ whether they agreed to follow-up here.
 
 ## After the interview
 
-- Create one copy of `summary-template.md` and use only an anonymous code such as `I-01`–`I-05`.
+- Create one copy of `summary-template.md` and use only an anonymous code such as `S-01`–`S-05`.
 - Separate direct observations or participant words from interpretation.
 - Mark H1–H4 as a **signal** (supports / challenges / unclear); do not call one interview
   validation.

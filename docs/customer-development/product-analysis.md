@@ -2,8 +2,7 @@
 
 **Review date:** 2026-11-11  
 **Evidence base:** public repository and a read-only check of the listed production URL.  
-**Evidence limit:** This is a product/code review, not customer research. No user interview,
-usability session, or customer hypothesis is validated by this analysis.
+**Evidence limit:** This is a product/code review, separate from the five-interview synthesis at [`interview-synthesis.md`](interview-synthesis.md). Interview signals do not validate usability or market demand.
 
 ## Current product state
 
@@ -26,7 +25,7 @@ usability session, or customer hypothesis is validated by this analysis.
 
 | Hypothesis | What product evidence shows | What remains unknown | Provisional product implication |
 | --- | --- | --- | --- |
-| H1 — coordination and trust problem | Contract state and dashboard can represent membership, contribution status, round, and payout order. | Whether organizers experience these issues often or urgently, how groups handle disputes, and whether existing tools suffice. | Keep the current narrow circle model while interviews establish real workflows and workarounds. Do not expand financial mechanics based on assumption. |
+| H1 — coordination and trust problem | Contract state and dashboard can represent membership, contribution status, round, and payout order. | Whether organizers experience these issues often or urgently, how groups handle disputes, and whether existing tools suffice. | Use the reported interview signals to guide follow-up on real workflows and workarounds; do not broaden the product until source notes and usability evidence support it. Do not expand financial mechanics based on assumption. |
 | H2 — wallet barrier | Multiple wallet paths are implemented in source. | Whether participants can find, connect, and use a supported wallet; which wallets they already know; where they stop or request help. | Run the planned wallet sessions before adding more wallet integrations. Record availability and fallback by wallet. |
 | H3 — transaction explanation | Live-state checks and Soroban simulation map contract errors to plain language. Incomplete payout now has a visible, read-only simulation path. | Whether participants notice, understand, and trust the explanation; whether it reduces confusion or failed attempts. | Observe the same incomplete-round task with participants and record their own explanation before moderator help. |
 | H4 — trust boundary | Signing is delegated to the external wallet; the application does not store secrets. | Whether users notice this boundary, believe it, or remain more concerned about contract risk, group behavior, or wallet unfamiliarity. | Ask for the participant's own explanation before and after the moderator's factual security explanation; do not equate architecture with trust. |
@@ -54,5 +53,4 @@ must be checked again.
    language difficulty separately so it is not misattributed to wallet or transaction complexity.
 4. Resolve the production deployment mismatch before presenting the Vercel URL as the English
    prototype.
-5. After five interviews and three sessions, update [`learning-log.md`](learning-log.md) with
-   source-linked observations and make a roadmap decision. Until then H1–H4 remain unvalidated.
+5. Five interviews are summarized; reconcile the IDs with source notes where available. After three usability sessions, update [`learning-log.md`](learning-log.md) with source-linked observations. Interview signals alone do not validate H1–H4.

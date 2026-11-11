@@ -1,6 +1,6 @@
 # Customer learning summary — [anonymous ID]
 
-> Save one copy per interview or usability session. Use IDs such as `I-01` or `U-01`; do not
+> Save one copy per interview or usability session. Use historical interview IDs `S-01`–`S-05` or usability IDs `U-01`–`U-03`; do not
 > include participant names, phone numbers, emails, wallet addresses, or secret material.
 
 ## Session record

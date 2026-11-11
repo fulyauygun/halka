@@ -42,5 +42,5 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Main README | [README.md](../README.md) |
 | CI status | [GitHub Actions](https://github.com/fulyauygun/halka/actions) — contracts + web jobs on every push |
 | Testnet accounts | [docs/testnet-accounts.md](testnet-accounts.md) |
-| Customer Development Plan | [docs/customer-development/README.md](customer-development/README.md) — interview and usability guides, anonymized participant tracker, summary template, and learning log. The planned five interviews and three sessions are not yet completed. |
-| Product desk review | [docs/customer-development/product-analysis.md](customer-development/product-analysis.md) — code and live-site observations only; not customer validation. It records the current Vercel language mismatch. |
+| Customer Development Plan | [docs/customer-development/README.md](customer-development/README.md) — interview and usability guides, anonymized participant tracker, summary template, and learning log. Five interviews are reported complete and summarized in [interview-synthesis.md](customer-development/interview-synthesis.md); three moderated sessions remain planned. Interview dates, consent status, and individual notes are not published. |
+| Product and interview review | [docs/customer-development/product-analysis.md](customer-development/product-analysis.md) — code/live-site observations and preliminary interview signals; usability and market demand remain unvalidated. Records the current Vercel language mismatch. |

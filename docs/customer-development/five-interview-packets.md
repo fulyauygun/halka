@@ -1,15 +1,6 @@
 # Five interview packets
 
-These are five **preparation sheets**, not interview records. No interview findings are recorded
-here. Use the common questions in [`interview-guide.md`](interview-guide.md) with every participant
-so that responses remain comparable. Select one follow-up track only after learning about the
-participant's actual experience; do not assign a role based on their name or make the focus prompt
-sound like an assumed problem.
-
-Use anonymous codes `I-01` through `I-05` in the public repository. Keep the name-to-code mapping
-outside the repository. Four names were supplied for the five planned interviews; `I-05` remains
-unassigned until a fifth participant is identified. The participant tracker remains “not
-scheduled” until each person confirms a time.
+These five focus tracks were prepared to support the interview guide. The project team now reports five interviews complete; this file remains a preparation aid, not an interview record. See [`interview-synthesis.md`](interview-synthesis.md) for the anonymized synthesis. Keep the name-to-ID key outside the repository and choose prompts based on each participant's actual experience.
 
 ## I-01 — Recent circle workflow
 
