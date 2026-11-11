@@ -36,6 +36,7 @@ stellar contract build        # build for the wasm32v1-none target
 - Architecture & setup: [docs/architecture.md](docs/architecture.md)
 - Month Two wallet integration, preflight, test harness and acceptance status: [docs/month-two-integration.md](docs/month-two-integration.md)
 - Evidence package (SOW §6.1): [docs/evidence-package.md](docs/evidence-package.md)
+- Customer Development Plan: [docs/customer-development/](docs/customer-development/README.md) (interview and test scripts, anonymized tracker, summary template, learning log)
 - UI demo + video runbook (Deliverable 3, optional — to be completed by the user): [docs/ui-demo-runbook.md](docs/ui-demo-runbook.md)
 - Testnet accounts: [docs/testnet-accounts.md](docs/testnet-accounts.md)
 
@@ -67,3 +68,4 @@ Albedo, and Hana. See [web/README.md](web/README.md) for details.
 - [x] Client-side Soroban RPC preflight for deposit, payout, and reclaim
 - [x] Testnet contract regression harness and security/integration documentation
 - [ ] Manual wallet acceptance matrix and UI demo video (requires browser wallets; see [docs/month-two-integration.md](docs/month-two-integration.md) and runbook)
+- [ ] Customer discovery: 5 structured interviews and 3 moderated testnet sessions (scripts and evidence tracker are prepared; see [docs/customer-development/](docs/customer-development/README.md))

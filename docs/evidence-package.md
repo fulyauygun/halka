@@ -42,3 +42,4 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Main README | [README.md](../README.md) |
 | CI status | [GitHub Actions](https://github.com/fulyauygun/halka/actions) — contracts + web jobs on every push |
 | Testnet accounts | [docs/testnet-accounts.md](testnet-accounts.md) |
+| Customer Development Plan | [docs/customer-development/README.md](customer-development/README.md) — interview and usability guides, anonymized participant tracker, summary template, and learning log. The planned five interviews and three sessions are not yet completed. |
