@@ -2,7 +2,7 @@
 
 These five focus tracks were prepared to support the interview guide. The project team now reports five interviews complete; this file remains a preparation aid, not an interview record. See [`interview-synthesis.md`](interview-synthesis.md) for the anonymized synthesis. Keep the name-to-ID key outside the repository and choose prompts based on each participant's actual experience.
 
-## I-01 — Recent circle workflow
+## Track A — Recent circle workflow
 
 **Use if:** the participant has recently organized or joined an informal rotating savings group.
 
@@ -14,7 +14,7 @@ These five focus tracks were prepared to support the interview guide. The projec
 
 **Capture:** actual recent steps, tools used, handoffs, and any concrete coordination incident.
 
-## I-02 — Contribution visibility
+## Track B — Contribution visibility
 
 **Use if:** the participant has personally checked or recorded who contributed.
 
@@ -27,7 +27,7 @@ These five focus tracks were prepared to support the interview guide. The projec
 **Capture:** the source of truth, checking effort, correction process, and the participant's own
 confidence in the record.
 
-## I-03 — Delays and exceptions
+## Track C — Delays and exceptions
 
 **Use if:** the participant has experienced a late contribution, a member leaving, or a delayed
 payout.
@@ -40,7 +40,7 @@ payout.
 
 **Capture:** the event and resolution, without collecting amounts or personal financial details.
 
-## I-04 — Trust and responsibility
+## Track D — Trust and responsibility
 
 **Use if:** the participant has firsthand experience with how a group's money is held or moved.
 
@@ -53,7 +53,7 @@ payout.
 **Capture:** the participant's own trust criteria and examples. Do not suggest that blockchain or
 non-custody necessarily improves trust.
 
-## I-05 — Wallet and transaction comprehension
+## Track E — Wallet and transaction comprehension
 
 **Use if:** the participant has used a digital wallet or has tried a blockchain transaction;
 otherwise ask about their first expectations without assuming experience.
