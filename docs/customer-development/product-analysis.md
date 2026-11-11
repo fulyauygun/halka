@@ -21,7 +21,7 @@
   custody boundary. The repository documents the boundary, but user comprehension still needs to
   be observed during sessions.
 
-## H1–H4 desk-review signals
+## H1–H4 product evidence and unresolved customer questions
 
 | Hypothesis | What product evidence shows | What remains unknown | Provisional product implication |
 | --- | --- | --- | --- |
@@ -46,7 +46,7 @@ must be checked again.
 
 ## Current decisions and next evidence
 
-1. Keep the existing contract mechanics and testnet-only scope unchanged while interviews run.
+1. Keep the existing contract mechanics and testnet-only scope unchanged while usability evidence is gathered.
 2. Use the new read-only payout simulation path to test H3 without asking a participant to sign an
    invalid call.
 3. Use the source's English interface for sessions only with participants able to read it; record
