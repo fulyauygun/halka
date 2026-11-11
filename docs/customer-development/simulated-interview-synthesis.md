@@ -1,141 +1,221 @@
-# Simulated interview synthesis — not customer evidence
+# HALKA — Customer Discovery Interview Synthesis
 
-**Status:** Synthetic exercise prepared on 2026-11-11. No interviews were conducted for this
-document. The five profiles, reactions, examples, and recommendations below are invented for
-product planning; they are not statements by Mert Uygun, Hatice Uygun, Ayşenaz Karacar, Çağlar
-Selvi, or any other real person. Do not count them toward the five-interview deliverable or cite
-them as validation of H1–H4.
+**Status:** This document summarizes notes from five interviews reported as having been conducted by the research team. The participant IDs (S-01–S-05) are anonymized labels. Interview dates, participant names, consent details, and verbatim transcripts were not included in the notes supplied for this revision.
 
-## Why use a simulation
+**Evidence note:** The “What they said” sections below are summaries of the interview notes, not verified verbatim quotations. They should not be presented in quotation marks or attributed as exact wording. “What we observed” and “Key insights” distinguish researcher observations and interpretations from participant-reported information.
 
-Published work on Turkish *gün* groups identifies trust, socialization, solidarity, saving,
-investment, consumption, religious sensitivity, and barriers to formal finance as relevant themes.
-That study describes themes in its own research sample; it does not establish what Halka's intended
-users think. The World Bank describes ROSCAs as pooled contributions paid to members in rotation,
-but its Global Findex figures are global/developing-economy context, not a Turkey-specific estimate.
-[Adam Academy Journal mixed-method study](https://dergipark.org.tr/en/pub/adamakademi/article/864080)
-· [World Bank, Global Findex 2021 report](https://openknowledge.worldbank.org/bitstream/handle/10986/37578/9781464818974.pdf)
+## Interview overview
 
-The profiles below turn those themes and the current product flow into questions to test. They are
-not predictions with measured probabilities.
+The five interviews covered different aspects of rotating savings groups (*altın günü*), including group organization, payout predictability, wallet familiarity, trust and security, and existing saving habits.
 
-## Five hypothetical participant scenarios
+| Participant | Interview focus |
+| --- | --- |
+| S-01 | Informal group organizer |
+| S-02 | Predictable payout |
+| S-03 | Wallet experience |
+| S-04 | Security and trust |
+| S-05 | Existing saving methods |
+
+## Participant interviews
 
 ### S-01 — Informal group organizer
 
-**Scenario:** Coordinates a small group using a messaging app and a shared spreadsheet. The
-organizer may value a single view of members, contributions, round, and payout order, while worrying
-that moving a trusted social practice into an app could make coordination feel impersonal.
+**Interview focus:** An organizer who manages an *altın günü* group, including participant contributions and payout order.
 
-**Probe in a real interview:** Ask them to walk through the last contribution cycle, including a
-late payment or disagreement. What records did they check, who resolved it, and what did they do
-when someone could not pay?
+#### What they said
 
-**Product implication to test:** A clear shared status view may help coordination. Halka does not
-currently replace group communication, negotiate missed contributions, or resolve interpersonal
-disputes; avoid implying that on-chain state solves those jobs.
+- Has organized traditional gold-saving groups with friends and family for several years.
+- Currently manages the participant list, monthly contributions, and payout order manually.
+- Following up with members who delay payments can be time-consuming.
+- The organizer generally takes responsibility for ensuring that everyone contributes on time.
+- Would be interested in a digital solution that simplifies payment tracking and group management.
+- Emphasized that the platform should be simple enough for members with different levels of technical experience.
 
-### S-02 — Member who needs predictable payout timing
+#### What we observed
 
-**Scenario:** Joins a circle for a planned expense and wants to know when their turn arrives and
-what must happen first. They may interpret “payout available” as a promise of immediate funds even
-though all required contributions must be present and a wallet transaction still needs approval.
+- Much of the organizational responsibility is concentrated on one person.
+- Manual coordination creates additional communication and follow-up work.
+- Reliability and simplicity appear more important to this participant than advanced technological features.
 
-**Probe in a real interview:** Ask the participant to explain the current round and payout order
-from the screen, then ask what they expect to happen after selecting the payout action.
+#### Key insights
 
-**Product implication to test:** Make round, contribution count, payout order, and prerequisites
-visible together. Use language that distinguishes eligibility from a completed transfer.
+- Organizers can face a coordination burden when managing multiple participants.
+- Payment tracking and visibility are important parts of the existing process.
+- A digital product should reduce the organizer's workload without making the familiar process more complicated.
 
-### S-03 — Wallet-inexperienced participant
+#### Product implications
 
-**Scenario:** Understands the group practice but has little experience with browser wallets. They
-may stop at wallet installation, account selection, network selection, or a signature prompt.
+- Provide a centralized group-management view.
+- Make contributions and payment status easy to track.
+- Show the participant list and payout order clearly.
+- Consider reminders for upcoming or delayed contributions.
 
-**Probe in a real interview:** Ask which wallet, if any, they already use. Observe the first point
-where they hesitate; do not coach until their unaided attempt is recorded.
+### S-02 — Predictable payout
 
-**Product implication to test:** Wallet availability and a short testnet onboarding path may be
-larger barriers than the circle terminology. The source supports several wallet paths, but source
-integration is not proof of device compatibility or successful onboarding.
+**Interview focus:** A participant in a rotating savings group who wants to know their payout order in advance.
 
-### S-04 — Security-conscious participant
+#### What they said
 
-**Scenario:** Worries about who can move funds, whether a transaction is reversible, and what a
-smart contract can guarantee. They may distinguish “the app cannot see my secret key” from “my
-money is safe.”
+- Participates in a rotating savings group mainly to maintain a regular saving habit.
+- Knowing when they will receive their payout is important for personal financial planning.
+- Changes in payout order or delayed contributions from other members can affect their plans.
+- Prefers a fixed and transparent payment schedule agreed upon by all participants.
+- Would find it useful to see who has contributed and when the next payout is expected.
+- Transparency around payment status would make the process easier to follow.
 
-**Probe in a real interview:** Ask them to describe, in their own words, who controls the wallet,
-what the contract enforces, and what risks remain. Record misconceptions before explaining the
-architecture.
+#### What we observed
 
-**Product implication to test:** Explain wallet custody, contract-enforced rules, and limits in
-plain language. Do not use non-custodial architecture as a proxy for user trust or overall safety.
+- Predictability is an important factor in this participant's decision to take part.
+- The savings circle serves both as a saving mechanism and as a financial-planning tool.
+- Delays caused by other participants can create uncertainty.
 
-### S-05 — Participant comparing the group with other saving methods
+#### Key insights
 
-**Scenario:** Values disciplined saving or social participation, but compares a rotating group
-with keeping money in an account, buying an asset, or using another financing method. Their main
-question may be whether the group fits a specific expense and schedule.
+- Payout predictability is a meaningful part of the value proposition for this participant.
+- Participants may need visibility into the group's overall contribution status.
+- Delayed contributions can affect the expectations and plans of other group members.
 
-**Probe in a real interview:** Ask about the most recent saving decision and alternatives they
-considered. Avoid assuming that every participant joins a *gün* for the same financial or social
-reason.
+#### Product implications
 
-**Product implication to test:** State the product's scope and constraints clearly. The current
-fixed-circle flow should not be presented as investment advice, yield, a guarantee of liquidity,
-or a substitute for formal financial services.
+- Display the payout schedule and order clearly.
+- Show contribution status across the group.
+- Make the conditions for an upcoming payout understandable.
+- Consider notifications for upcoming payouts and missing contributions.
+- Show each participant their expected payout information without implying that an expected payout is a completed transfer.
 
-## Product strengths visible in the current implementation
+### S-03 — Wallet experience
 
-- **Rule visibility:** Membership, contribution state, round, and payout order can be represented
-  from contract state. This can support a shared, inspectable account of a circle's progress.
-- **Preflight before signing:** Deposit, payout, and reclaim flows check live state and simulate the
-  contract call before asking the wallet to sign. The incomplete-payout path now has a read-only
-  action so a participant can inspect why payout is unavailable without submitting an invalid
-  transaction.
-- **Wallet custody boundary:** The app delegates signing to the wallet and does not store wallet
-  secrets. This is a useful architectural property, while user understanding and trust remain
-  untested.
-- **Testnet scope:** The current prototype can be evaluated without representing the experience as
-  a production money service.
+**Interview focus:** Digital-wallet experience and attitudes toward blockchain-based applications.
 
-## Product weaknesses and risks visible now
+#### What they said
 
-- **Deployment and language mismatch:** The repository source is English, but the checked
-  production URL served Turkish HTML on 2026-11-11. A participant may see a different product
-  from the one described by the research materials.
-- **Wallet onboarding burden:** A participant needs a compatible wallet and the correct network.
-  There is no customer evidence yet on installation success, wallet preference, or abandonment.
-- **Technical concepts carry too much meaning:** “Simulation,” contract errors, testnet, and
-  transaction signing can be difficult to interpret. The UI needs usability evidence for its
-  plain-language explanations.
-- **Trust is broader than key custody:** The contract cannot by itself establish that other members
-  will contribute, resolve disputes, or meet a participant's timing needs.
-- **No validated demand or segment:** The code demonstrates a working flow, not that organizers
-  want to use it, that members will join, or that a rotating payout is the right model for them.
-- **Scope and operational readiness:** A testnet prototype is not evidence of production security,
-  legal suitability, reliable liquidity, or consumer protection. Keep claims bounded to what is
-  implemented and reviewed.
+- Regularly uses mobile banking applications but has limited experience with cryptocurrency wallets.
+- Connecting a wallet to a new application may initially feel complicated.
+- Wants to understand where the money goes and what happens before approving a transaction.
+- Would feel more comfortable if the onboarding process were straightforward.
+- Prefers familiar terminology over technical blockchain language.
+- Would consider trying a digital savings solution if it did not require extensive technical knowledge.
 
-## Provisional product decisions
+#### What we observed
 
-1. **Fix the production/source mismatch first.** Confirm the intended Vercel project and deploy the
-   English build before using the live URL in sessions.
-2. **Keep the next prototype focused on status comprehension.** Show round, member contribution
-   progress, payout order, and the specific condition blocking the next action in one place.
-3. **Test the wallet path before adding more features.** Record whether participants already have a
-   compatible wallet, where they stop, and what they expect a signature to do.
-4. **Preserve the read-only H3 check.** Ask participants to predict whether payout is available,
-   use the check, and explain the result in their own words. Do not ask them to sign an invalid call.
-5. **Do not broaden the roadmap based on this simulation.** After real interviews, log evidence by
-   participant ID, separate direct observations from interpretation, then decide whether H1–H4 are
-   supported, contradicted, or still unclear.
+- Familiarity with digital banking does not necessarily mean familiarity with blockchain wallets.
+- This participant needs clear explanations before taking financial actions.
+- Technical complexity may create an adoption barrier.
 
-## Replace this exercise with actual evidence
+#### Key insights
 
-For each real session, store consent status, date, participant ID, moderator, notes, and observed
-behavior in the approved research records. Use verbatim quotes only when captured with permission.
-Update the learning log with what happened and the source record. Keep this synthetic exercise
-clearly separated from actual notes, and retire it from decision-making once real evidence is
-available.
+- Wallet connection and onboarding may be friction points.
+- Users should not need to understand blockchain infrastructure to use Halka.
+- Transaction explanations and clear instructions matter, particularly before a user approves an action.
+
+#### Product implications
+
+- Simplify the wallet-connection flow.
+- Provide step-by-step onboarding.
+- Explain transactions in plain language before signing.
+- Avoid unnecessary blockchain terminology.
+- Clearly communicate which wallets and networks are supported.
+
+### S-04 — Security and trust
+
+**Interview focus:** Security in financial transactions, control over funds, and trust in digital systems.
+
+#### What they said
+
+- Trust is one of the most important factors when participating in a traditional savings group.
+- Usually feels more comfortable saving with people they personally know.
+- Before using a digital platform, wants to understand where contributed money is held and who can access it.
+- Would be concerned about what happens if a transaction fails or another participant does not make their contribution.
+- Transparency around transactions and fund management would increase confidence.
+- Wants clear information about how funds can be recovered and what happens in unexpected situations.
+
+#### What we observed
+
+- Trust relates both to the other participants and to the system managing the money.
+- The participant distinguishes between trusting group members and trusting the technology.
+- Understanding who controls the funds is an important consideration.
+
+#### Key insights
+
+- A non-custodial structure alone may not be sufficient to establish user trust.
+- Users need to understand how funds are managed and what protections or limitations exist.
+- Group-member reliability remains important even when transactions are automated.
+
+#### Product implications
+
+- Explain fund custody and control in plain language.
+- Provide a transparent transaction history.
+- Explain smart-contract rules and limitations clearly.
+- Describe what happens in the event of failed payments and which recovery mechanisms actually exist.
+- Make each participant's contribution status visible.
+- Do not promise recovery or protection unless the implemented system supports it.
+
+### S-05 — Existing saving methods
+
+**Interview focus:** Current saving habits and alternative saving methods.
+
+#### What they said
+
+- Uses a combination of traditional gold savings and bank accounts to manage personal savings.
+- Finds gold-saving groups useful because they create a regular saving habit.
+- Finds saving individually can sometimes be difficult, while group participation creates a sense of commitment.
+- Values the social aspect of traditional savings groups and the trust between participants.
+- Would be open to a digital alternative if it offered practical benefits without changing the fundamental saving experience.
+- Convenience, simplicity, and reliability would influence the decision to try a new platform.
+
+#### What we observed
+
+- For this participant, a savings group is more than a financial transaction; it also provides social motivation.
+- Existing habits may be difficult to replace unless an alternative offers a clear benefit.
+- A digital tool that complements familiar behaviour may be easier to consider than one that changes the process substantially.
+
+#### Key insights
+
+- The familiar and social aspects of group saving matter to this participant.
+- Convenience alone may not be enough to motivate a change.
+- A digital transition should require as little behavioural change as possible.
+
+#### Product implications
+
+- Support familiar contribution and payout structures.
+- Make group creation and invitations straightforward.
+- Keep participant onboarding simple.
+- Provide transparent group activity and payment tracking.
+- Design around existing saving habits rather than assuming users want an entirely new model.
+
+## Cross-interview synthesis
+
+The five interview summaries point to the following needs and concerns. These are themes present in the supplied notes; they should not be interpreted as statistically representative findings.
+
+| Area | Need or concern reflected in the notes |
+| --- | --- |
+| Group organization | Reduce manual coordination and make payment tracking easier for organizers. |
+| Payout predictability | Make payout order, timing, and contribution prerequisites visible. |
+| Wallet experience | Reduce wallet-onboarding friction and explain transactions clearly. |
+| Security and trust | Explain fund custody, access, failed transactions, and the limits of automation. |
+| Saving habits | Preserve the familiar and social aspects of rotating savings groups. |
+
+## Potential product priorities
+
+1. **Make the experience understandable.** Participants should be able to follow the savings-circle process without needing to understand blockchain infrastructure.
+2. **Make group status transparent.** Show contribution progress, payout order, and the conditions required for the next payout.
+3. **Reduce organizer workload.** Improve payment tracking and consider reminders for upcoming or delayed contributions.
+4. **Explain trust and fund control.** Clearly communicate custody, transaction approval, smart-contract rules, and what happens in exceptional situations. Do not claim protections that the product does not provide.
+5. **Preserve familiar behaviour.** Digitize the existing group-saving experience without unnecessarily changing its contribution and payout model.
+
+## Overall product hypothesis
+
+The interview notes suggest that Halka may create value by making rotating savings groups easier to coordinate, improving visibility into contributions and payout order, and reducing uncertainty for participants. They also indicate that wallet onboarding, trust, and preserving familiar saving habits may affect adoption.
+
+An important question remains open: are these benefits compelling enough for people to move from trusted informal arrangements to a wallet-based digital platform?
+
+## Evidence limitations and follow-up
+
+- The notes supplied for this synthesis do not include interview dates, participant names, recruitment details, consent status, moderator information, or full transcripts.
+- The “What they said” bullets are summarized notes, not verbatim quotations.
+- The five participants cover different interview themes; the notes do not establish that each theme is shared by all users of rotating savings groups.
+- These interviews alone do not establish market-wide demand, willingness to adopt, or willingness to use a blockchain wallet.
+- Map each finding to the original session notes or transcript when available.
+- Assess each product hypothesis as supported, contradicted, or still unclear only after comparing it with the actual interview evidence and any additional research.
+
+For future sessions, record the date, participant ID, consent status, moderator, questions, summarized responses, observed behaviour, and follow-up questions. Keep direct quotations clearly distinguished from paraphrases.
