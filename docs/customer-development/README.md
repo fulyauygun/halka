@@ -32,6 +32,9 @@ happened.
 - [`learning-log.md`](learning-log.md): evidence log and roadmap decision record for H1–H4.
 - [`product-analysis.md`](product-analysis.md): desk review of current product evidence and live
   language status. It is explicitly not customer research.
+- [`simulated-interview-synthesis.md`](simulated-interview-synthesis.md): five hypothetical
+  participant scenarios and source-informed product analysis. These are invented planning
+  examples, not interviews or validation of H1–H4.
 
 ## Hypotheses and evidence standard
 
