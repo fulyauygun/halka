@@ -38,6 +38,15 @@ them locally only when you choose to run the harness. Each run creates new circl
 testnet transactions. The rejection cases are simulated and are never submitted. Adjust the
 fixture accounts and environment variables if using separate dedicated accounts.
 
+### Latest testnet regression run
+
+The final successful run on 2026-11-11 created circles #20 and #21. All 19 logged scenarios
+passed: lifecycle creation/join/deposit/payout, duplicate and non-member rejection, incomplete
+payout rejection, early-reclaim rejection, non-depositor reclaim rejection, and reclaim by the
+recorded depositor after the on-ledger timeout. The 14 submitted testnet transactions and five
+expected rejections are recorded in [testnet-regression.jsonl](testnet-regression.jsonl).
+This is the CLI harness result; it does not count as manual browser-wallet acceptance.
+
 ## Wallet flow and preflight
 
 Stellar Wallets Kit is configured for Testnet and limited in the Halka picker to Varial (the
@@ -69,20 +78,21 @@ message without requesting a wallet signature or submitting a transaction.
 
 ## Wallet compatibility and acceptance report
 
-The app is wired to the three requested Kit modules. A connected-wallet acceptance run must still
-be performed in a browser with each wallet available; this repository has not recorded those
-manual runs or their transaction hashes yet.
+The app is wired to the three requested Kit modules. A manual attempt was made against the current
+English source on localhost with the Chrome profile available for testing. The browser did not
+have all three wallets ready, so no connected-wallet transaction was signed; no wallet-flow
+transaction hash exists. This is an environment blocker, not a passing acceptance result.
 
 | Wallet | Connection/signing integration | Manual testnet result | Known limitation / fallback |
 | --- | --- | --- | --- |
-| Freighter / Varial | Implemented through Stellar Wallets Kit | Not run in this environment | If unavailable, select another listed wallet or install the wallet and retry. |
-| Albedo | Implemented through Stellar Wallets Kit | Not run in this environment | Opens Albedo's external approval flow; if unavailable, select another listed wallet. |
-| Hana | Implemented through Stellar Wallets Kit | Not run in this environment | Requires the Hana wallet to be available in the browser; otherwise select another listed wallet. |
+| Freighter / Varial | Picker exposes Varial, the Freighter-compatible Kit option | Blocked before connection: picker showed “Varial Install”; extension was unavailable in the test Chrome profile. No transaction signed. | Install/enable the wallet, then repeat connection, signing, confirmation, and state-refresh checks. No tx hash. |
+| Albedo | Implemented through Stellar Wallets Kit | Connection prompt opened, but Albedo had no account selected/configured and offered only account creation or secret-key entry. Neither was performed; no transaction signed. | User must select/configure a test account in Albedo, then repeat the full flow. Do not share a secret key. No tx hash. |
+| Hana | Implemented through Stellar Wallets Kit | Blocked before connection: picker showed “Hana Wallet Install”; extension was unavailable in the test Chrome profile. No transaction signed. | Install/enable Hana, then repeat connection, signing, confirmation, and state-refresh checks. No tx hash. |
 
-For each manual check, record connection, displayed account, one signed circle action, confirmation,
-and refreshed circle state. Record the wallet name, action, outcome, and transaction hash here after
-the check. Run the UI demonstration using [ui-demo-runbook.md](ui-demo-runbook.md). No transaction
-hashes or video are claimed until the corresponding wallet run has actually occurred.
+When the wallets are available, record connection, displayed account, one signed testnet circle
+action, confirmation, and refreshed circle state. Record the wallet name, action, outcome, and
+transaction hash here after the check. Run the UI demonstration using [ui-demo-runbook.md](ui-demo-runbook.md).
+The regression harness hashes above are not substitutes for these manual wallet-flow hashes.
 
 ## Commands
 

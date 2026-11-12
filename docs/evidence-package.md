@@ -11,7 +11,7 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Testnet contract ID | `CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q` |
 | Explorer | https://stellar.expert/explorer/testnet/contract/CBOGI62MN5V3M7QSOKS7E6YWLLAO73LJIS3TMBMEFIADG2LDC37HUI5Q |
 | Unit tests | 21 tests, `cargo test --workspace` — runs in CI on every push |
-| End-to-end verification | [docs/week2-e2e-verification.md](week2-e2e-verification.md), [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) (native XLM SAC), [docs/usdc-verification.md](usdc-verification.md) (real testnet Circle USDC SAC, per the SOW's "testnet USDC" spec) |
+| End-to-end verification | [docs/week2-e2e-verification.md](week2-e2e-verification.md), [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) (native XLM SAC), [docs/usdc-verification.md](usdc-verification.md) (real testnet Circle USDC SAC), and [docs/testnet-regression.jsonl](testnet-regression.jsonl) (latest 19-scenario CLI harness run: 14 submitted transactions, 5 expected rejections) |
 
 ## Deliverable 2 — Multi-wallet web app and client-side preflight
 
@@ -32,7 +32,7 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | --- | --- |
 | Full 5-member / 5-round cycle (CLI, real testnet) | [docs/week4-demo-tx-log.md](week4-demo-tx-log.md) — 36 transactions, all independently verifiable on stellar.expert |
 | Full 3-member / 3-round cycle with real testnet USDC (CLI, real testnet) | [docs/usdc-verification.md](usdc-verification.md) — 11 transactions, all independently verifiable on stellar.expert |
-| UI + video (external wallet) | Manual browser acceptance and video have not yet been recorded. Use [docs/ui-demo-runbook.md](ui-demo-runbook.md); the compatibility matrix and unrun checks are recorded in [docs/month-two-integration.md](month-two-integration.md). No wallet run or hash is claimed until it is performed. |
+| UI + video (external wallet) | CLI regression evidence is recorded in [docs/testnet-regression.jsonl](testnet-regression.jsonl). Manual wallet acceptance and video remain incomplete: Freighter-compatible Varial and Hana were unavailable, and Albedo had no configured account. The attempt details are in [docs/month-two-integration.md](month-two-integration.md); no manual wallet transaction or hash is claimed. |
 | README / architecture doc | [docs/architecture.md](architecture.md) |
 
 ## General
@@ -44,3 +44,4 @@ Maps directly to the Instaward SOW's "Planned Evidence to Be Submitted" table.
 | Testnet accounts | [docs/testnet-accounts.md](testnet-accounts.md) |
 | Customer Development Plan | [docs/customer-development/README.md](customer-development/README.md) — interview and usability guides, anonymized participant tracker, summary template, and learning log. Five interviews are reported complete and summarized in [interview-synthesis.md](customer-development/interview-synthesis.md); three moderated sessions remain planned. Interview dates, consent status, and individual notes are not published. |
 | Product and interview review | [docs/customer-development/product-analysis.md](customer-development/product-analysis.md) — code/live-site observations and preliminary interview signals; usability and market demand remain unvalidated. Records the current Vercel language mismatch. |
+

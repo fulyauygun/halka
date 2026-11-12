@@ -29,6 +29,17 @@ const clients = accounts.map((keypair) => new Client({
 const [creatorClient, member1Client, member2Client, outsiderClient] = clients;
 const logPath = path.resolve(process.env.HALKA_TX_LOG ?? "../docs/testnet-regression.jsonl");
 
+async function latestLedgerCloseTime(): Promise<bigint> {
+  const response = await fetch(RPC_URL, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getLatestLedger" }),
+  });
+  const body = await response.json() as { result?: { closeTime?: string }; error?: { message?: string } };
+  assert(response.ok && body.result?.closeTime, body.error?.message ?? "getLatestLedger failed");
+  return BigInt(body.result.closeTime);
+}
+
 async function record(scenario: string, outcome: string, txHash?: string) {
   const line = JSON.stringify({ at: new Date().toISOString(), scenario, outcome, txHash: txHash ?? null });
   await mkdir(path.dirname(logPath), { recursive: true });
@@ -43,11 +54,17 @@ async function submit(scenario: string, tx: Awaited<ReturnType<typeof creatorCli
   await record(scenario, "passed", sent.sendTransactionResponse?.hash);
 }
 
-async function rejected(scenario: string, expected: string, build: () => Promise<{ result: { isErr(): boolean; unwrapErr(): { message: string } } }>) {
+async function rejected(scenario: string, expected: string, build: () => Promise<{ result: { isErr(): boolean; unwrapErr(): { message: string } }; simulation?: { error?: string } }>) {
   let message = "";
   try {
     const tx = await build();
-    if (tx.result.isErr()) message = tx.result.unwrapErr().message;
+    const contractError = tx.result.isErr() ? tx.result.unwrapErr().message : "";
+    const simulationError = tx.simulation?.error ?? "";
+    const errorCode = simulationError.match(/Error\(Contract, #(\d+)\)/)?.[1];
+    const mappedError = errorCode
+      ? Errors[Number(errorCode) as keyof typeof Errors]?.message ?? ""
+      : "";
+    message = [contractError, mappedError, simulationError].filter(Boolean).join(" ");
   } catch (error) {
     message = error instanceof Error ? error.message : String(error);
   }
@@ -92,8 +109,12 @@ async function main() {
   await submit("deposit:reclaim:member1", await member1Client.deposit({ circle_id: reclaimId, member: member1.publicKey() }));
   const stateTx = await creatorClient.get_circle({ circle_id: reclaimId });
   assert.equal(stateTx.result.isErr(), false);
-  const deadlineMs = Number(stateTx.result.unwrap().round_deadline) * 1000;
-  await new Promise((resolve) => setTimeout(resolve, Math.max(0, deadlineMs - Date.now() + 500)));
+  const deadline = stateTx.result.unwrap().round_deadline;
+  const waitUntil = Date.now() + 60_000;
+  while (await latestLedgerCloseTime() < deadline) {
+    assert(Date.now() < waitUntil, "testnet ledger did not reach the reclaim deadline within 60 seconds");
+    await new Promise((resolve) => setTimeout(resolve, 1_000));
+  }
   await rejected("reclaim_non_depositor", "NothingToReclaim", () => member2Client.reclaim({ circle_id: reclaimId, member: member2.publicKey() }));
   await submit("reclaim_after_timeout:recorded_depositor", await member1Client.reclaim({ circle_id: reclaimId, member: member1.publicKey() }));
 }
